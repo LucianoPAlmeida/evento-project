@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Usuários</ui:insert></title>
+  <script type="text/javascript" src="http://192.168.1.6:8080/EventoProject/javascripts/scripts.js">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://192.168.1.6:8080/EventoProject/styles/style.css" />
+  
+</head>
+
+<h:body>
+	<h:form rendered="${usuario.administrador}">
+		<h:outputLabel value="Usuários" styleClass="labelTitulo"/>	
+		<br/>
+		<br/>
+		<h:outputLabel value="Nenhum usuário cadastrado!" rendered="#{empty listagemUsuarios.daoUsuario.all}" styleClass="labelPadrao"/>
+		<h:dataTable rendered="#{not empty listagemUsuarios.daoUsuario.all}" value="#{listagemUsuarios.daoUsuario.all}" var="usuario">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				#{usuario.nome}
+			</h:column>
+			<h:column>
+				<f:facet name="header">E-mail</f:facet>
+				#{usuario.email}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data de Cadastro</f:facet>
+				#{usuario.dataCadastroFormatada}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:outputLabel rendered="#{usuario.administrador}" value="Administrador"/>
+				<h:commandButton rendered="#{not usuario.administrador}" value="Excluir" action="#{listagemUsuarios.deletarUsuario(usuario.email)}" onclick="return deletar();" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</h:column>
+		</h:dataTable>
+		<br/>
+		<h:commandLink action="principal" value="Página principal"/>
+	</h:form>
+</h:body>
+
+</html>

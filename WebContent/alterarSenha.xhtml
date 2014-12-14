@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Alterar Senha</ui:insert></title>
+  <script type="text/javascript" src="http://192.168.1.6:8080/EventoProject/javascripts/scripts.js">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://192.168.1.6:8080/EventoProject/styles/style.css" />
+</head>
+
+<h:body>
+	<h:form rendered="${not empty usuario}">
+		<h:outputLabel value="Alterar Senha" styleClass="labelTitulo"/><br/><br/>
+		<h:outputLabel value="${usuario.nome}" styleClass="labelPadrao"/>
+		<br/>
+		<h:outputLabel value="${usuario.email}" styleClass="labelPadrao"/><br/>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Senha atual" styleClass="labelPadrao"/>
+			</div>
+			<h:inputSecret value="#{alterarSenhaBean.senhaAtual}" required="true" requiredMessage="Senha obrigatória!" id="senhaAtual" validatorMessage="A senha deve conter no mínimo 6 digítos">
+				<f:validateLength minimum="6"/>
+			</h:inputSecret>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel  value="Nova Senha" styleClass="labelPadrao"/>
+			</div>
+			<h:inputSecret value="#{alterarSenhaBean.novaSenha}" required="true" requiredMessage="Nova senha obrigatória!" id="novaSenha" validatorMessage="A nova senha deve conter no mínimo 6 digítos">
+				<f:validateLength minimum="6"/>
+			</h:inputSecret>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Confirmar senha" styleClass="labelPadrao"/>
+			</div>
+			<h:inputSecret value="#{alterarSenhaBean.confirmacaoSenha}" rendered="true" requiredMessage="A confirmação da senha é obrigatória!" validatorMessage="A confirmação da senha deve conter no mínimo 6 digítos">
+				<f:validateLength minimum="6"/>
+			</h:inputSecret>
+		</div>
+		<br/>
+		<div class="divBotoes">
+			<h:commandButton value="Alterar" action="#{alterarSenhaBean.alterar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton value="Voltar" action="principal" immediate="true" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+		</div>
+		<br/>
+		<h:messages styleClass="msgErroPadrao"/>
+	</h:form>
+</h:body>
+
+</html>

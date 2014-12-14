@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Cadastro</ui:insert></title>
+  <script type="text/javascript" src="http://192.168.1.6:8080/EventoProject/javascripts/scripts.js">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://192.168.1.6:8080/EventoProject/styles/style.css" />
+</head>
+
+<h:body>
+	<h:form enctype="multipart/form-data">
+		<h:outputLabel value="Evento" styleClass="labelTitulo"/>
+		<br/>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
+			</div>
+			<h:inputText id="title" value="#{eventoBean.evento.title}" required="true" requiredMessage="O título do Evento é obrigatório"/>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Tipo de Evento" styleClass="labelPadrao"/>
+			</div>
+			<h:selectOneMenu value="#{eventoBean.evento.tipo}">
+				<f:selectItems value="#{eventoBean.allEventos()}" var="evento" itemLabel="#{evento.toString()}" itemValue="#{evento}"/>
+			</h:selectOneMenu>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Data do Evento" styleClass="labelPadrao"/>
+			</div>
+			<input id="dataEvento" name="dataEvento" type="date" min="#{eventoBean.dataMinima}" value="#{eventoBean.dataString}"/>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Hora do Evento" styleClass="labelPadrao"/>
+			</div>
+			<h:selectOneMenu value="#{eventoBean.horaEvento}">
+				<f:selectItems var="h" value="#{eventoBean.horas()}" itemLabel="#{h}" itemValue="#{h}"/>
+			</h:selectOneMenu>
+			
+			<h:selectOneMenu value="#{eventoBean.minutoEvento}">
+				<f:selectItems var="m" value="#{eventoBean.minutos()}" itemLabel="#{m}" itemValue="#{m}"/>
+			</h:selectOneMenu>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Descrição " styleClass="labelPadrao"/>
+			</div>
+			<h:inputTextarea id="summary" value="#{eventoBean.evento.summary}" required="true" requiredMessage="A descrição do Evento é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
+				<f:validateLength minimum="10" maximum="500"/>
+			</h:inputTextarea>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Foto" styleClass="labelPadrao"/>
+			</div>
+			<h:inputFile id="fileInput" value="#{eventoBean.file}" validator="fileValidator" />
+		</div>
+		<br/>
+		<div class="divBotoes">
+			<h:commandButton rendered="#{eventoBean.updating}" value="Alterar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{not eventoBean.updating}" value="Cadastrar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton value="Voltar" immediate="true" action="#{eventoBean.voltar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+		</div>
+		<br/>
+		<br/>
+		<h:messages styleClass="msgErroPadrao"/>
+	</h:form>
+</h:body>
+</html>

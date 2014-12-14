@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Evento</ui:insert></title>
+  <script type='text/javascript'>
+  	if(!document.location.hash) {
+  		 location.reload();
+     	 document.location = document.location + '#loaded';
+  	}
+  	
+  </script>
+  <script type="text/javascript" src="http://192.168.1.6:8080/EventoProject/javascripts/scripts.js">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://192.168.1.6:8080/EventoProject/styles/style.css" />
+</head>
+
+<h:body >
+	<h:form rendered="${not empty usuario}">
+			<div style="margin-left: 50px;width: 300px;">
+				<h:outputLabel value="#{eventoBean.evento.tipo.toString()}" styleClass="labelTitulo"/><br/>
+				<h:outputLabel value="#{eventoBean.evento.title}" styleClass="labelPadrao"/><br/><br/>
+				<h:outputLabel value="#{eventoBean.evento.summary}" styleClass="labelPadrao"/><br/><br/>
+				<h:outputLabel value="Dia #{eventoBean.evento.diaEvento}" styleClass="labelPadrao"/>
+				<h:outputLabel value="Hora #{eventoBean.evento.horaEvento}" styleClass="labelPadrao"/><br/>
+			</div>
+			<br/>
+			<h:graphicImage id="photo" value="#{eventoBean.tmpPath}" height="300" width="300" styleClass="imagens"/><br/>
+			<div class="divBotoes">
+				<h:commandButton rendered="#{eventoBean.updating}" value="Salvar Mudanças" action="#{eventoBean.confirmarAlteracao()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+				<h:commandButton rendered="#{not eventoBean.updating}" value="Confirmar" action="#{eventoBean.confirmarCadastro()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+				<h:commandButton value="Cancelar" action="#{eventoBean.cancelar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+	</h:form>
+</h:body>
+
+</html>
+

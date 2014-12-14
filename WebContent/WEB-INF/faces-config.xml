@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+	
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadastroEvento</from-outcome>
+			<to-view-id>cadastroEvento.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>telaLogin.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>alterarSenha</from-outcome>
+			<to-view-id>alterarSenha.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cadastroPalestrante</from-outcome>
+			<to-view-id>cadastroPalestrante.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cadastrarUsuario</from-outcome>
+			<to-view-id>cadastroUsuario.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>principal</from-outcome>
+			<to-view-id>index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listarEventos</from-outcome>
+			<to-view-id>listagemEventos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listarPalestrantes</from-outcome>
+			<to-view-id>listagemPalestrantes.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listarUsuarios</from-outcome>
+			<to-view-id>listagemUsuarios.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>confirmarPalestrante</from-outcome>
+			<to-view-id>confirmacaoPalestrante.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>telaLogin.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>alterarSenha</from-outcome>
+			<to-view-id>alterarSenha.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>mapa</from-outcome>
+			<to-view-id>mapaInterface.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>cadastroEvento.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>confirmar</from-outcome>
+			<to-view-id>confirmacaoEvento.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

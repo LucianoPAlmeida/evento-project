@@ -1,0 +1,189 @@
+package br.ucb.projeto.controller.managedBeans;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+
+import br.ucb.projeto.model.beans.Evento;
+import br.ucb.projeto.model.beans.ImagePath;
+import br.ucb.projeto.model.enuns.EventType;
+import br.ucb.projeto.util.DateUtil;
+import br.ucb.talp.model.DAOS.EventoDAO;
+import br.ucb.talp.model.persistense.ImagePersistence;
+@SessionScoped
+@ManagedBean(name = "eventoBean")
+public class CadastroEventoManagedBean {
+	private Evento evento;
+	private Part file;
+	private String horaEvento;
+	private String minutoEvento;
+	private boolean updating,loadFile;
+	private String tmpPath;
+	public GregorianCalendar dataAux;
+	public CadastroEventoManagedBean(){
+		setEvento(new Evento());
+		setTmpPath("http://192.168.1.6:8080/EventoProject/images/"+ImagePersistence.getInstance().getTmpFileName()+".png");
+	}
+	public Evento getEvento() {
+		return evento;
+	}
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+	public Part getFile() {
+		return file;
+	}
+	public void setFile(Part file) {
+		this.file = file;
+	}
+	public String getHoraEvento() {
+		return horaEvento;
+	}
+	public void setHoraEvento(String horaEvento) {
+		this.horaEvento = horaEvento;
+	}
+	public String getMinutoEvento() {
+		return minutoEvento;
+	}
+	public void setMinutoEvento(String minutoEvento) {
+		this.minutoEvento = minutoEvento;
+	}
+	public boolean isUpdating() {
+		return updating;
+	}
+	public void setUpdating(boolean updating) {
+		this.updating = updating;
+	}
+	
+	public boolean isLoadFile() {
+		return loadFile;
+	}
+	public void setLoadFile(boolean loadFile) {
+		this.loadFile = loadFile;
+	}
+	
+	public String getTmpPath() {
+		return tmpPath;
+	}
+	public void setTmpPath(String tmpPath) {
+		this.tmpPath = tmpPath;
+	}
+	public void clear(){
+		setEvento(new Evento());
+		setHoraEvento("00");
+		setMinutoEvento("00");
+		setLoadFile(false);
+		setUpdating(false);
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
+	}
+	public String getDataString(){
+		if(getDataAux() == null)
+			setDataAux(new GregorianCalendar());
+		return DateUtil.stringFromDate(getDataAux());
+	}
+	public GregorianCalendar getDataAux() {
+		return dataAux;
+	}
+	public void setDataAux(GregorianCalendar dataAux) {
+		this.dataAux = dataAux;
+	}
+	public String cadastrar(){
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
+		if(isUpdating()){
+			try {
+				Files.copy(Paths.get(getEvento().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if((getFile().getSize() != 0)){
+			uploadFile();
+		}else if(!isUpdating()){
+			try {
+				getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
+				Files.copy(Paths.get(getEvento().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		preencherData();
+		return "confirmar";
+	}
+	public void uploadFile(){
+		setLoadFile((getFile().getSize() != 0));
+		String formato = getFile().getContentType();
+		formato = formato.substring(formato.indexOf("/")+1);
+		ImagePersistence.getInstance().persist(getFile(),null, formato);
+	}
+	public String confirmarCadastro(){
+		EventoDAO dao = new EventoDAO();
+		String simplePath = null;
+		if(getEvento() != null && getEvento().getPhoto()!= null){
+			simplePath = getEvento().getPhoto().getSimplePath();
+		}
+		dao.add(getEvento(),!(simplePath != null && simplePath.endsWith("eventoDefault.png")));
+		clear();
+		return "listarEventos";
+	}
+	public String confirmarAlteracao(){
+		EventoDAO dao = new EventoDAO();
+		dao.update(getEvento(), isLoadFile());
+		clear();
+		return "listarEventos";
+	}
+	public String cancelar(){
+		clear();
+		return "principal";
+	}
+	public void preencherData(){
+		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String data = request.getParameter("dataEvento");
+		System.out.println(data);
+		if(data.isEmpty() || !data.matches("\\d{4}-\\d{2}-\\d{2}")){
+			data = getDataMinima();
+		}
+		getEvento().setData(DateUtil.dateFromString(data));
+		Calendar dataEvento = getEvento().getData();
+		dataEvento.set(Calendar.HOUR_OF_DAY,Integer.parseInt(getHoraEvento()));
+		dataEvento.set(Calendar.MINUTE,Integer.parseInt(getMinutoEvento()));
+		
+	}
+	public List<EventType> allEventos(){
+		return Arrays.asList(EventType.values());
+	}
+	
+	public List<String> horas(){
+		return listaDeNumeros(0, 23);
+	}
+	
+	public List<String> minutos(){
+		return listaDeNumeros(0, 59);
+	}
+	public String getDataMinima(){
+		Calendar data = new GregorianCalendar();
+		return DateUtil.stringFromDate(data);
+	}
+	public List<String>listaDeNumeros(int inicio,int fim){
+		List<String> list = new ArrayList<String>();
+		for(int i = inicio;i <= fim; i++){
+			list.add(DateUtil.stringIntComZerosEsquerda(i));
+		}
+		return list;
+	}
+	public String voltar(){
+		clear();
+		return "principal";
+	}
+}
