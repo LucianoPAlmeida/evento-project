@@ -6,7 +6,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name = "indexBean")
 @RequestScoped
 public class IndexManagedBean {
-	
+	public static final String APPLICATION_DOMAIN = "192.168.1.6:8080";
 	public IndexManagedBean() {
 	}
 	
@@ -17,6 +17,10 @@ public class IndexManagedBean {
 		return "cadastroEvento";
 	}
 	public void clear(){
+	}
+	
+	public String getAplicationDomain(){
+		return APPLICATION_DOMAIN;
 	}
 	
 }

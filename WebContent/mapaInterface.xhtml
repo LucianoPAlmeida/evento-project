@@ -8,9 +8,9 @@
 >
 <head>
   <title><ui:insert name="title">Mapa</ui:insert></title>
-  <script type="text/javascript" src="http://192.168.1.6:8080/EventoProject/javascripts/scripts.js">
+  <script type="text/javascript" src="http://#{indexBean.aplicationDomain}/EventoProject/javascripts/scripts.js">
   </script>
-  <link rel="stylesheet" type="text/css" href="http://192.168.1.6:8080/EventoProject/styles/style.css" />
+  <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
 
 </head>
 
@@ -22,9 +22,9 @@
 			<h:outputLabel value="Mapa" styleClass="labelTitulo"/><br/>
 		</div>
 		<h:outputLabel rendered="#{not mapaBean.mapaExiste}" value="Mapa ainda não foi cadastrado!" styleClass="labelMenor"/>
-		<h:graphicImage style="position:relative;z-index: 0;" rendered="#{mapaBean.mapaExiste}" value="http://192.168.1.6:8080/EventoProject/images/mapa.png" height="300" width="300" onclick="getClickPosition(event);" styleClass="mapaImage">
+		<h:graphicImage style="position:relative;z-index: 0;" rendered="#{mapaBean.mapaExiste}" value="http://#{indexBean.aplicationDomain}/EventoProject/images/mapa.png" height="300" width="300" onclick="getClickPosition(event);" styleClass="mapaImage">
 			<ui:repeat var="point" value="#{mapaBean.daoMap.all}">
-				<h:graphicImage title="#{point.idString}" onclick="return clickOnPoint(event);" height="20" width="20" value="http://192.168.1.6:8080/EventoProject/images/placemark.png" style="margin-top:#{point.y-20}px;margin-left:#{point.x-10}px;position:absolute;z-index: 1;"/>
+				<h:graphicImage title="#{point.idString}" onclick="return clickOnPoint(event);" height="20" width="20" value="http://#{indexBean.aplicationDomain}/EventoProject/images/placemark.png" style="margin-top:#{point.y-20}px;margin-left:#{point.x-10}px;position:absolute;z-index: 1;"/>
 			</ui:repeat>
 			<h:commandButton value="Excluir" id="bDeletarPonto" action="#{mapaBean.deletarPonto()}" onclick="return clickOnPointDeleteButton()" immediate="true" style="visibility:hidden;position:absolute;z-index: 1;" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 		</h:graphicImage>

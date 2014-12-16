@@ -107,3 +107,9 @@ function mouseOutMenuButton(e) {
 	element.style.color = "#686868";
 	
 }
+function reloadPage(){
+	if(!document.location.hash) {
+ 		 document.location.reload();
+    	 document.location = document.location + '#loaded';
+ 	}
+}

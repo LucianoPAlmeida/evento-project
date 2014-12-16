@@ -34,7 +34,7 @@ public class CadastroEventoManagedBean {
 	public GregorianCalendar dataAux;
 	public CadastroEventoManagedBean(){
 		setEvento(new Evento());
-		setTmpPath("http://192.168.1.6:8080/EventoProject/images/"+ImagePersistence.getInstance().getTmpFileName()+".png");
+		setTmpPath("http://"+IndexManagedBean.APPLICATION_DOMAIN+"/EventoProject/images/"+ImagePersistence.getInstance().getTmpFileName()+".png");
 	}
 	public Evento getEvento() {
 		return evento;

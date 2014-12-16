@@ -1,6 +1,7 @@
 package br.ucb.projeto.controller.managedBeans;
 
 import java.io.File;
+import java.util.GregorianCalendar;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -27,6 +28,10 @@ public class LoginManageBean {
 		ManagerFactory.getInstance();
 		fp.setServerPath(realPath);
 		fp.setTmpFileName(request.getRemoteAddr().replace('.','-').replace(":","-"));
+		UsuarioDAO dao = new UsuarioDAO();
+		if(!dao.emailExiste("admin@mail.com")){
+			dao.add(new Usuario("admin", "admin@mail.com","admins", new GregorianCalendar(), true));
+		}
 	}
 	public String getEmail() {
 		return email;
@@ -43,16 +48,17 @@ public class LoginManageBean {
 	public String logar(){
 		UsuarioDAO daoUser = new UsuarioDAO();
 		Usuario user = daoUser.autenticarUsuario(getEmail(), getSenha());
+		String ret = null;
 		clear();
 		if(user == null){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuário ou senha incorretos!"));
-			return null;
 		}else{
 			HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 			request.getSession().setAttribute("usuario", user);
-			return "principal";
+			ret = "principal";
 		}
-		
+		clear();
+		return ret;
 	}
 	
 	public String sair(){
