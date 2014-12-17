@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -107,7 +108,9 @@ public class CadastroEventoManagedBean {
 			getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
 			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
-		preencherData();
+		if(!preencherData()){
+			return null;
+		}
 		return "confirmar";
 	}
 	public void uploadFile(){
@@ -150,17 +153,19 @@ public class CadastroEventoManagedBean {
 		clear();
 		return "principal";
 	}
-	public void preencherData(){
+	public boolean preencherData(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String data = request.getParameter("dataEvento");
 		if(data.isEmpty() || !data.matches("\\d{4}-\\d{2}-\\d{2}")){
-			data = getDataMinima();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Informe a data no formato yyyy-mm-dd Ex:"+DateUtil.stringFromDate(new GregorianCalendar())+"(hoje)"));
+			return false;
+		}else{
+			getEvento().setData(DateUtil.dateFromString(data));
+			Calendar dataEvento = getEvento().getData();
+			dataEvento.set(Calendar.HOUR_OF_DAY,Integer.parseInt(getHoraEvento()));
+			dataEvento.set(Calendar.MINUTE,Integer.parseInt(getMinutoEvento()));
 		}
-		getEvento().setData(DateUtil.dateFromString(data));
-		Calendar dataEvento = getEvento().getData();
-		dataEvento.set(Calendar.HOUR_OF_DAY,Integer.parseInt(getHoraEvento()));
-		dataEvento.set(Calendar.MINUTE,Integer.parseInt(getMinutoEvento()));
-		
+		return true;
 	}
 	public List<EventType> allEventos(){
 		return Arrays.asList(EventType.values());
