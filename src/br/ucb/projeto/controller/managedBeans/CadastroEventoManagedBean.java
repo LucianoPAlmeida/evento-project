@@ -85,7 +85,7 @@ public class CadastroEventoManagedBean {
 		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 	}
 	public String getDataString(){
-		if(getDataAux() == null)
+		if(getDataAux() == null || !isUpdating())
 			setDataAux(new GregorianCalendar());
 		return DateUtil.stringFromDate(getDataAux());
 	}
@@ -153,7 +153,6 @@ public class CadastroEventoManagedBean {
 	public void preencherData(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String data = request.getParameter("dataEvento");
-		System.out.println(data);
 		if(data.isEmpty() || !data.matches("\\d{4}-\\d{2}-\\d{2}")){
 			data = getDataMinima();
 		}
