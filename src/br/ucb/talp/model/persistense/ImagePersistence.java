@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Random;
 
 import javax.servlet.http.Part;
@@ -79,5 +80,26 @@ public class ImagePersistence {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public String copy(String pathOriginal,String copyPath,boolean deleteOrinal){
+		try {
+			Files.copy(Paths.get(pathOriginal),Paths.get(copyPath), StandardCopyOption.REPLACE_EXISTING);
+			if(deleteOrinal){
+				delete(pathOriginal);
+			}
+			return copyPath;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public String rename(String path,String novoNome){
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
+		File file = new File(path);
+		File newFile = new File(imgPersistence.getServerPath()+((novoNome == null)?imgPersistence.randomName():novoNome)+".png");
+		file.renameTo(newFile);
+		return newFile.getAbsolutePath(); 
 	}
 }

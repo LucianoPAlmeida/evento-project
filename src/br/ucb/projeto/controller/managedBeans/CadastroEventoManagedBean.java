@@ -1,9 +1,5 @@
 package br.ucb.projeto.controller.managedBeans;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -100,23 +96,16 @@ public class CadastroEventoManagedBean {
 		this.dataAux = dataAux;
 	}
 	public String cadastrar(){
-		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
+		imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
 		if(isUpdating()){
-			try {
-				Files.copy(Paths.get(getEvento().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		if((getFile().getSize() != 0)){
 			uploadFile();
 		}else if(!isUpdating()){
-			try {
-				getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
-				Files.copy(Paths.get(getEvento().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
+			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		preencherData();
 		return "confirmar";
@@ -128,18 +117,32 @@ public class CadastroEventoManagedBean {
 		ImagePersistence.getInstance().persist(getFile(),null, formato);
 	}
 	public String confirmarCadastro(){
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		EventoDAO dao = new EventoDAO();
 		String simplePath = null;
 		if(getEvento() != null && getEvento().getPhoto()!= null){
 			simplePath = getEvento().getPhoto().getSimplePath();
 		}
-		dao.add(getEvento(),!(simplePath != null && simplePath.endsWith("eventoDefault.png")));
+		if(!(simplePath != null && simplePath.endsWith("eventoDefault.png"))){
+			String path = imgPersistence.rename(imgPersistence.getTmpFilePath(),null);
+			getEvento().setPhoto(new ImagePath(path));
+		}
+		dao.add(getEvento());
 		clear();
 		return "listarEventos";
 	}
 	public String confirmarAlteracao(){
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		EventoDAO dao = new EventoDAO();
-		dao.update(getEvento(), isLoadFile());
+		if(isLoadFile()){
+			String path = getEvento().getPhoto().getPath();
+			String newPath = imgPersistence.rename(imgPersistence.getTmpFilePath(), null);
+			getEvento().setPhoto(new ImagePath(newPath));
+			if(!path.endsWith("eventoDefault.png")){
+				imgPersistence.delete(path);
+			}
+		}
+		dao.update(getEvento());
 		clear();
 		return "listarEventos";
 	}

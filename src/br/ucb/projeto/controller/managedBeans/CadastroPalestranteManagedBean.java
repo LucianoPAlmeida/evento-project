@@ -1,10 +1,5 @@
 package br.ucb.projeto.controller.managedBeans;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
@@ -56,23 +51,16 @@ public class CadastroPalestranteManagedBean {
 		this.tmpPath = tmpPath;
 	}
 	public String submit(){
-		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
+		imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
 		if(isUpdating()){
-			try {
-				Files.copy(Paths.get(getPalestrante().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			imgPersistence.copy(getPalestrante().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		if((getImage().getSize() != 0)){
 			uploadFile();
 		}else if(!isUpdating()){
-			try {
-				getPalestrante().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"palestranteDefalut.png"));
-				Files.copy(Paths.get(getPalestrante().getPhoto().getPath()),Paths.get(ImagePersistence.getInstance().getTmpFilePath()), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			getPalestrante().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"palestranteDefalut.png"));
+			imgPersistence.copy(getPalestrante().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		return "confirmarPalestrante";
 	}
@@ -85,19 +73,33 @@ public class CadastroPalestranteManagedBean {
 	}
 	
 	public String confirmarCadastro(){
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		PalestranteDAO dao = new PalestranteDAO();
 		String simplePath = null;
 		if(getPalestrante() != null && getPalestrante().getPhoto()!= null){
 			simplePath = getPalestrante().getPhoto().getSimplePath();
 		}
-		dao.add(getPalestrante(),!(simplePath != null && simplePath.endsWith("palestranteDefalut.png")));
+		if(!(simplePath != null && simplePath.endsWith("palestranteDefalut.png"))){
+			String path = imgPersistence.rename(imgPersistence.getTmpFilePath(),null);
+			getPalestrante().setPhoto(new ImagePath(path));
+		}
+		dao.add(getPalestrante());
 		clear();
 		return "listarPalestrantes";
 	}
 	
 	public String confirmarAlteracao(){
+		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		PalestranteDAO dao = new PalestranteDAO();
-		dao.update(getPalestrante(),isLoadFile());
+		if(isLoadFile()){
+			String path = getPalestrante().getPhoto().getPath();
+			String newPath = imgPersistence.rename(imgPersistence.getTmpFilePath(), null);
+			getPalestrante().setPhoto(new ImagePath(newPath));
+			if(!path.endsWith("palestranteDefalut.png")){
+				imgPersistence.delete(path);
+			}
+		}
+		dao.update(getPalestrante());
 		clear();
 		return "listarPalestrantes";
 	}

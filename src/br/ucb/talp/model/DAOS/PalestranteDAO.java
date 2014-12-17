@@ -1,12 +1,10 @@
 package br.ucb.talp.model.DAOS;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.talp.model.persistense.ImagePersistence;
@@ -24,14 +22,7 @@ public class PalestranteDAO{
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	public void add(Palestrante entity,boolean persistImage) {
-		if(persistImage){
-			ImagePersistence imgPersistence = ImagePersistence.getInstance();
-			File file = new File(imgPersistence.getTmpFilePath());
-			File newFile = new File(imgPersistence.getServerPath()+imgPersistence.randomName()+".png");
-			file.renameTo(newFile);
-			entity.setPhoto(new ImagePath(newFile.getAbsolutePath()));
-		}
+	public void add(Palestrante entity) {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().persist(entity);
 		getEntityManager().getTransaction().commit();
@@ -46,18 +37,7 @@ public class PalestranteDAO{
 		return query.getResultList();
 	}
 
-	public void update(Palestrante entity,boolean updateImage) {
-		if(updateImage){
-			ImagePersistence imgPersistence = ImagePersistence.getInstance();
-			String pathToDelete = entity.getPhoto().getPath();
-			File file = new File(imgPersistence.getTmpFilePath());
-			File newFile = new File(imgPersistence.getServerPath()+imgPersistence.randomName()+".png");
-			file.renameTo(newFile);
-			entity.setPhoto(new ImagePath(newFile.getAbsolutePath()));
-			if(!pathToDelete.endsWith("palestranteDefalut.png")){
-				imgPersistence.delete(pathToDelete);
-			}
-		}
+	public void update(Palestrante entity) {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().merge(entity);
 		getEntityManager().getTransaction().commit();
