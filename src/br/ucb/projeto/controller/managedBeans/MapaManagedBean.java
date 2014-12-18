@@ -1,11 +1,14 @@
 package br.ucb.projeto.controller.managedBeans;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
@@ -58,7 +61,27 @@ public class MapaManagedBean {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
-
+	public int getMapWidth(){
+		try {
+			BufferedImage bfImg = ImageIO.read(new File(getMapPath().getPath()));
+			System.out.println("width = "+bfImg.getWidth());
+			return bfImg.getWidth();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int getMapHeight(){
+		try {
+			BufferedImage bfImg = ImageIO.read(new File(getMapPath().getPath()));
+			System.out.println("heigth = "+bfImg.getHeight());
+			return bfImg.getHeight();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public boolean isMapaExiste(){
 		if(getMapPath() != null){
 			return new File(getMapPath().getPath()).exists();

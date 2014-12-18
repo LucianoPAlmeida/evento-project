@@ -108,8 +108,9 @@ function mouseOutMenuButton(e) {
 	
 }
 function reloadPage(){
-	if(!document.location.hash) {
- 		 document.location.reload();
-    	 document.location = document.location + '#loaded';
- 	}
+//	if(!document.location.hash) {
+// 		 document.location.reload();
+//    	 document.location = document.location + '#loaded';
+// 	}
+	document.getElementById('')
 }

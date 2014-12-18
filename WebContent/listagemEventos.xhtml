@@ -20,6 +20,9 @@
 		<h:messages styleClass="msgErroPadrao"/>
 		<h:outputLabel value="Nenhum evento Cadastrado" rendered="#{empty eventoListagem.daoEvento.all}" styleClass="labelPadrao"/>
 		<h:dataTable rendered="#{not empty eventoListagem.daoEvento.all}" value="#{eventoListagem.daoEvento.all}" var="evento">
+			<h:column>
+				<h:graphicImage value="http://#{indexBean.aplicationDomain}/EventoProject/#{evento.photo.simplePath}" width="40" height="40"/>
+			</h:column>
 			<h:column >
 			  <f:facet name="header">Título</f:facet>
 			  #{evento.title}
@@ -37,11 +40,9 @@
 			  #{evento.horaEvento}
 			</h:column>
 			<h:column >
-			  <f:facet name="header">Editar</f:facet>
 			  <h:commandButton value="Editar" action="#{eventoListagem.alterar(evento.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 			<h:column >
-			  <f:facet name="header">Excluir</f:facet>
 			  <h:commandButton value="Excluir" action="#{eventoListagem.excluir(evento.id)}" onclick="return deletar();" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 		</h:dataTable>

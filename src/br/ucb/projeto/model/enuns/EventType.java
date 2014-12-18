@@ -1,7 +1,7 @@
 package br.ucb.projeto.model.enuns;
 
 public enum EventType {
-	PALESTRA("Palestra");
+	PALESTRA("Palestra"),WORKSHOP("Workshop");
 	
 	private String type;
 	private EventType(String type){
