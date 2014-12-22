@@ -10,8 +10,6 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
-import br.ucb.talp.model.persistense.ImagePersistence;
-
 public class ImageManipupulation {
 	public static boolean imageJpegToPng(File image,boolean deleteOriginal){
 		try {
