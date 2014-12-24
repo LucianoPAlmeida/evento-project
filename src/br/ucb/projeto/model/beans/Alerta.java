@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -15,6 +17,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import br.ucb.projeto.util.DateUtil;
 @Entity
 @Table(name = "tb_alertas")
+@NamedQueries({
+	@NamedQuery(name = "allAlertas",query = "select a from Alerta a")
+})
 public class Alerta implements Serializable{
 	
 	private static final long serialVersionUID = -3178316612012862493L;

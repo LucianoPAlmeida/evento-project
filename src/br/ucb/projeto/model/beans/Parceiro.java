@@ -6,11 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import br.ucb.projeto.model.enuns.TipoParceiro;
 @Entity
 @Table(name = "tb_parceiros")
+@NamedQueries({
+	@NamedQuery(name = "allParceiros",query = "select a from Parceiro a")
+})
 public class Parceiro implements Serializable{
 	
 	private static final long serialVersionUID = 1662258273657717746L;

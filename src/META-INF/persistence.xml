@@ -12,6 +12,10 @@
 <class>br.ucb.projeto.model.beans.Palestrante</class>
 <class>br.ucb.projeto.model.beans.MapPoint</class>
 <class>br.ucb.projeto.model.beans.Usuario</class>
+<class>br.ucb.projeto.model.beans.Alerta</class>
+<class>br.ucb.projeto.model.beans.Video</class>
+<class>br.ucb.projeto.model.beans.Postagem</class>
+<class>br.ucb.projeto.model.beans.Parceiro</class>
 <properties>
 <!--   INICIO DAS CONFIGURACOES JDBC   -->
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -4,10 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_videos")
+@NamedQueries({
+	@NamedQuery(name = "allVideos",query = "select a from Video a")
+})
 public class Video {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -49,8 +49,10 @@ public class EventoDAO{
 	public void delete(Object id,boolean deleteImage) {
 		Evento evento = find(id);
 		if(deleteImage){
-			ImagePersistence imgPersistence = ImagePersistence.getInstance();
-			imgPersistence.delete(evento.getPhoto().getPath());
+			if(evento.getPhoto() != null){
+				ImagePersistence imgPersistence = ImagePersistence.getInstance();
+				imgPersistence.delete(evento.getPhoto().getPath());
+			}
 		}
 		getEntityManager().getTransaction().begin();
 		getEntityManager().remove(evento);

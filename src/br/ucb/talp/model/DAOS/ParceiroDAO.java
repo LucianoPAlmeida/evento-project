@@ -5,16 +5,17 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.ucb.projeto.model.beans.Palestrante;
+import br.ucb.projeto.model.beans.Parceiro;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.talp.model.persistense.ImagePersistence;
 
-public class PalestranteDAO{
-	EntityManager entityManager;
-	public PalestranteDAO() {
+public class ParceiroDAO {
+	private EntityManager entityManager;
+	
+	public ParceiroDAO(){
 		setEntityManager(ManagerFactory.getInstance());
 	}
-
+	
 	private EntityManager getEntityManager() {
 		return entityManager;
 	}
@@ -22,38 +23,36 @@ public class PalestranteDAO{
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	public void add(Palestrante entity) {
+	public void add(Parceiro parceiro) {
 		getEntityManager().getTransaction().begin();
-		getEntityManager().persist(entity);
+		getEntityManager().persist(parceiro);
 		getEntityManager().getTransaction().commit();
 	}
 
-	public Palestrante find(Object key) {
-		return getEntityManager().find(Palestrante.class, key);
+	public Parceiro find(Object key) {
+		return getEntityManager().find(Parceiro.class,key);
 	}
 
-	public List<Palestrante> getAll() {
-		TypedQuery<Palestrante> query = getEntityManager().createNamedQuery("getAllPalestrantes", Palestrante.class);
+	public List<Parceiro> getAll() {
+		TypedQuery<Parceiro> query = getEntityManager().createNamedQuery("allParceiros",Parceiro.class);
 		return query.getResultList();
 	}
 
-	public void update(Palestrante entity) {
+	public void update(Parceiro entity) {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().merge(entity);
 		getEntityManager().getTransaction().commit();
 	}
-
-	public void delete(Object id,boolean deleteImage) {
-		Palestrante palestrante = find(id);
+	
+	public void delete(Integer id,boolean deleteImage) {
+		Parceiro parceiro = find(id);
 		if(deleteImage){
-			if(palestrante.getPhoto() != null){
-				ImagePersistence imgPersistence = ImagePersistence.getInstance();
-				imgPersistence.delete(palestrante.getPhoto().getPath());
+			if(parceiro.getLogo() != null){
+				ImagePersistence.getInstance().delete(parceiro.getLogo().getPath());
 			}
 		}
 		getEntityManager().getTransaction().begin();
-		getEntityManager().remove(palestrante);
+		getEntityManager().remove(parceiro);
 		getEntityManager().getTransaction().commit();
 	}
-
 }
