@@ -35,8 +35,8 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		Usuario user = (Usuario)req.getSession().getAttribute("usuario");
 		String servletPath = req.getServletPath();
-		System.out.println(servletPath);
-		if(servletPath.contains(".js") || servletPath.contains(".css") || user != null || req.getPathInfo().equals("/telaLogin.xhtml") || servletPath.equals("/rest")){
+		//System.out.println(servletPath);
+		if(servletPath.contains(".js") || servletPath.contains(".css")|| servletPath.contains("/images")|| user != null || req.getPathInfo().equals("/telaLogin.xhtml") || servletPath.equals("/rest")){
 			chain.doFilter(request, response);
 		}else{
 			((HttpServletResponse)response).sendRedirect("telaLogin.xhtml");

@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import br.ucb.projeto.model.enuns.EventType;
+import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.util.DateUtil;
 
 @Entity
@@ -45,6 +46,8 @@ public class Evento implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_photo")
 	private ImagePath photo;
+	@Enumerated(EnumType.ORDINAL)
+	private LocalEvento local;
 	@Temporal(TemporalType.TIMESTAMP)
 	private GregorianCalendar data;
 	@Enumerated(EnumType.ORDINAL)
@@ -83,6 +86,13 @@ public class Evento implements Serializable{
 	}
 	public void setPhoto(ImagePath photo) {
 		this.photo = photo;
+	}
+	
+	public LocalEvento getLocal() {
+		return local;
+	}
+	public void setLocal(LocalEvento local) {
+		this.local = local;
 	}
 	@XmlTransient
 	public GregorianCalendar getData() {

@@ -25,6 +25,15 @@
 		<br/>
 		<div>
 			<div class="divLabel">
+				<h:outputLabel value="Local" styleClass="labelPadrao"/>
+			</div>
+			<h:selectOneMenu value="#{eventoBean.evento.local}">
+				<f:selectItems value="#{eventoBean.allLocais()}" var="local" itemLabel="#{local.toString()}" itemValue="#{local}"/>
+			</h:selectOneMenu>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
 				<h:outputLabel value="Tipo de Evento" styleClass="labelPadrao"/>
 			</div>
 			<h:selectOneMenu value="#{eventoBean.evento.tipo}">

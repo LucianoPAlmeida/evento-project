@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.enuns.EventType;
+import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.util.DateUtil;
 import br.ucb.talp.model.DAOS.EventoDAO;
 import br.ucb.talp.model.persistense.ImagePersistence;
@@ -170,7 +171,9 @@ public class CadastroEventoManagedBean {
 	public List<EventType> allEventos(){
 		return Arrays.asList(EventType.values());
 	}
-	
+	public List<LocalEvento> allLocais(){
+		return Arrays.asList(LocalEvento.values());
+	}
 	public List<String> horas(){
 		return listaDeNumeros(0, 23);
 	}

@@ -12,10 +12,11 @@
 </head>
 
 <h:body>
-	<h:form rendered="${not empty usuario}">
+	<h:form>
 			<div style="margin-left: 50px;width: 300px;">
 				<h:outputLabel value="#{eventoBean.evento.tipo.toString()}" styleClass="labelTitulo"/><br/>
 				<h:outputLabel value="#{eventoBean.evento.title}" styleClass="labelPadrao"/><br/><br/>
+				<h:outputLabel value="Local #{eventoBean.evento.local.toString()}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="#{eventoBean.evento.summary}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="Dia #{eventoBean.evento.diaEvento}" styleClass="labelPadrao"/>
 				<h:outputLabel value="Hora #{eventoBean.evento.horaEvento}" styleClass="labelPadrao"/><br/>
