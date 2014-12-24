@@ -16,14 +16,32 @@
 		<div class="divPrincipal">
 			<div class="divMenu">
 				<h:outputLabel value="Eventos" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
-				<h:commandButton value="Cadastrar" action="#{indexBean.cadastrarEvento()}" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Adicionar" action="#{indexBean.cadastrarEvento()}" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
 				<h:commandButton value="Listar" action="listarEventos" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</div>
 			
 			<div class="divMenu">
 				<h:outputLabel value="Palestrantes" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
-				<h:commandButton value="Cadastrar" action="#{indexBean.cadastrarPalestrante()}" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Adicionar" action="#{indexBean.cadastrarPalestrante()}" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
 				<h:commandButton value="Listar" action="listarPalestrantes" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+			
+			<div class="divMenu">
+				<h:outputLabel value="Alertas" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
+				<h:commandButton value="Adicionar" action="cadastrarAlerta" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Listar" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+			
+			<div class="divMenu">
+				<h:outputLabel value="Postagens" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
+				<h:commandButton value="Adicionar"  styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Listar" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+			
+			<div class="divMenu">
+				<h:outputLabel value="Videos" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
+				<h:commandButton value="Adicionar"  styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Listar" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</div>
 			
 			<div class="divMenu">	
@@ -37,6 +55,13 @@
 				<h:commandButton rendered="${usuario.administrador}" value="Adicionar Usuário" action="cadastrarUsuario" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
 				<h:commandButton rendered="${usuario.administrador}" value="Listar Usuários" action="listarUsuarios" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</div>
+			
+			<div class="divMenu">
+				<h:outputLabel value="Parceiros" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
+				<h:commandButton value="Adicionar"  styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/><br/>
+				<h:commandButton value="Listar" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+			
 			<div class="divMenu">
 				<h:commandButton value="Sair" action="#{loginBean.sair()}" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="botaoSair"/>
 			</div>

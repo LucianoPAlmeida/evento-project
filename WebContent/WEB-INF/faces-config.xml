@@ -59,6 +59,10 @@
 			<from-outcome>mapa</from-outcome>
 			<to-view-id>mapaInterface.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>cadastrarAlerta</from-outcome>
+			<to-view-id>cadastroAlerta.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	

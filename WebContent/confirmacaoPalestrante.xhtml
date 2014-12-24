@@ -9,15 +9,10 @@
   <script type="text/javascript" src="http://#{indexBean.aplicationDomain}/EventoProject/javascripts/scripts.js">
   </script>
   <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
-  <meta Http-Equiv="Cache-Control" Content="no-cache"/>
-  <meta Http-Equiv="Pragma" Content="no-cache"/>
-  <meta Http-Equiv="Expires" Content="0"/>
-  <meta Http-Equiv="Pragma-directive: no-cache"/>
-  <meta Http-Equiv="Cache-directive: no-cache"/>
 </head>
 
 <h:body>
-	<h:form rendered="${not empty usuario}">
+	<h:form>
 		<h:outputLabel value="Palestrante" styleClass="labelTitulo"/>
 		<br/>
 		<br/>
@@ -30,7 +25,7 @@
 		<br/>
 		<br/>
 		<br/>
-		<h:graphicImage value="#{palestranteBean.tmpPath}" height="200" width="200" styleClass="imagens"/><br/>	
+		<h:graphicImage value="#{palestranteBean.tmpPath}?randomParamiter=#{indexBean.randomValue}" height="200" width="200" styleClass="imagens"/><br/>	
 		<br/>
 		<div class="divBotoes">
 			<h:commandButton rendered="#{palestranteBean.updating}" value="Salvar Alterações" action="#{palestranteBean.confirmarAlteracao()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>

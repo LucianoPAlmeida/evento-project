@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tb_postagens")
 @NamedQueries({
@@ -25,6 +27,7 @@ public class Postagem implements Serializable{
 	private Integer id;
 	private String titulo;
 	private String texto;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar data;
 	
 	public Postagem() {

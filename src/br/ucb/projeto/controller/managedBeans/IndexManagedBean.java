@@ -1,5 +1,7 @@
 package br.ucb.projeto.controller.managedBeans;
 
+import java.util.Random;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -22,5 +24,7 @@ public class IndexManagedBean {
 	public String getAplicationDomain(){
 		return APPLICATION_DOMAIN;
 	}
-	
+	public String getRandomValue(){
+		return String.valueOf(new Random().nextInt());
+	}
 }

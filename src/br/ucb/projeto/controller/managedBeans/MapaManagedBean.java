@@ -15,6 +15,7 @@ import javax.servlet.http.Part;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.beans.MapPoint;
+import br.ucb.projeto.util.ImageManipupulation;
 import br.ucb.talp.model.DAOS.EventoDAO;
 import br.ucb.talp.model.DAOS.MapPointDAO;
 import br.ucb.talp.model.persistense.ImagePersistence;
@@ -105,6 +106,7 @@ public class MapaManagedBean {
 		ImagePersistence imgPersitence = ImagePersistence.getInstance();
 		imgPersitence.delete(imgPersitence.getServerPath()+"mapa.png");
 		imgPersitence.persist(getMapImage(),"mapa", formato);
+		ImageManipupulation.changeScale(ImagePersistence.getInstance().getServerPath()+"mapa.png", 800, 500);
 		return null;
 	}
 	

@@ -22,7 +22,7 @@
 				<h:outputLabel value="Hora #{eventoBean.evento.horaEvento}" styleClass="labelPadrao"/><br/>
 			</div>
 			<br/>
-			<h:graphicImage id="photo" value="#{eventoBean.tmpPath}" height="300" width="300" styleClass="imagens"/><br/>
+			<h:graphicImage id="photo" value="#{eventoBean.tmpPath}?randomParamiter=#{indexBean.randomValue}" height="300" width="300" styleClass="imagens"/><br/>
 			<div class="divBotoes">
 				<h:commandButton rendered="#{eventoBean.updating}" value="Salvar Mudanças" action="#{eventoBean.confirmarAlteracao()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 				<h:commandButton rendered="#{not eventoBean.updating}" value="Confirmar" action="#{eventoBean.confirmarCadastro()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>

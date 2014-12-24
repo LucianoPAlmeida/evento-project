@@ -1,7 +1,6 @@
 package br.ucb.projeto.util;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +28,11 @@ public class ImageManipupulation {
 	public static boolean changeScale(String imagePath,int newWidth,int newHeigth){
 		try {
 			BufferedImage bfImg = ImageIO.read(new File(imagePath));
-			Graphics2D gf = bfImg.createGraphics();
-			AffineTransform af = AffineTransform.getScaleInstance(newWidth, newHeigth);
-			gf.drawImage(bfImg, af, null);
-			ImageIO.write(bfImg, "png",new File(imagePath));
+			BufferedImage novaImagem = new BufferedImage(newWidth,newHeigth, bfImg.getType());    
+	        Graphics2D g2d = novaImagem.createGraphics();    
+	        g2d.drawImage(bfImg, 0, 0, newWidth, newHeigth, null);    
+	        g2d.dispose();
+			ImageIO.write(novaImagem, "png",new File(imagePath));
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

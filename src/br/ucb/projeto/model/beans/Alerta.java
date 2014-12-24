@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,6 +30,7 @@ public class Alerta implements Serializable{
 	private Integer id;
 	private String titulo;
 	private String descricao;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar data;
 	
 	public Alerta() {
