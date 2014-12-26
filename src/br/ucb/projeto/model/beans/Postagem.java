@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Postagem implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
+	@Column(length = 2000)
 	private String texto;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar data;
@@ -80,6 +82,11 @@ public class Postagem implements Serializable{
 			return (getTitulo().equalsIgnoreCase(p.getTitulo()) && getTexto().equalsIgnoreCase(p.getTexto()) && getData().equals(p.getData()));
 		}
 		return false;
+	}
+	@Override
+	public String toString() {
+		return "Postagem [id=" + getId() + ", titulo=" + getTitulo() + ", texto=" + getTexto()
+				+ ", data=" + getData() + "]";
 	}
 	
 	

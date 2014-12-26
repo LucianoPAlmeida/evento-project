@@ -1,11 +1,11 @@
 package br.ucb.projeto.controller.managedBeans;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.talp.model.DAOS.AlertaDAO;
-@RequestScoped
+@SessionScoped
 @ManagedBean(name = "alertaBean")
 public class CadastroAlertaManageBean {
 	

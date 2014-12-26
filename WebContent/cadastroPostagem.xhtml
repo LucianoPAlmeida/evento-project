@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Cadastro</ui:insert></title>
+  <script type="text/javascript" src="http://#{indexBean.aplicationDomain}/EventoProject/javascripts/scripts.js">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
+</head>
+
+<h:body>
+	<h:form enctype="multipart/form-data">
+		<h:outputLabel value="Postagem" styleClass="labelTitulo"/>
+		<br/>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
+			</div>
+			<h:inputText value="#{postagemBean.postagem.titulo}" required="true" requiredMessage="O título da postagem é obrigatório"/>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Postagem" styleClass="labelPadrao"/>
+			</div>
+			<h:inputTextarea  value="#{postagemBean.postagem.texto}" required="true" requiredMessage="O conteúdo da postagem é obrigatório!" validatorMessage="Descrição entre 30 e 2000 caracteres" styleClass="textAreaPostagem">
+				<f:validateLength minimum="30" maximum="2000"/>
+			</h:inputTextarea>
+		</div>
+		<br/>
+		<div class="divBotoes">
+			<h:commandButton rendered="#{postagemBean.updating}" value="Alterar" action="#{postagemBean.alterar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{not postagemBean.updating}" value="Publicar" action="#{postagemBean.postar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton value="Cancelar" immediate="true" action="#{postagemBean.cancelar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+		</div>
+		<h:messages styleClass="msgErroPadrao"/>
+	</h:form>
+</h:body>
+</html>
