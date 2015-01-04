@@ -35,7 +35,7 @@ public class EventoResource {
 			if(local.equalsIgnoreCase("UCB")){
 				lista = getDaoEvento().findByLocal(LocalEvento.UCB);
 			}else if(local.equalsIgnoreCase("FNAC")){
-				lista = getDaoEvento().findByLocal(LocalEvento.UCB);
+				lista = getDaoEvento().findByLocal(LocalEvento.FNAC);
 			}else if(local.equalsIgnoreCase("cultura")){
 				lista = getDaoEvento().findByLocal(LocalEvento.LIVRARIA_CULTURA);
 			}

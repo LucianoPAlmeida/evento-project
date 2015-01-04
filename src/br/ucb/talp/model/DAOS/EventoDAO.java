@@ -70,7 +70,7 @@ public class EventoDAO{
 	}
 	public List<Evento> findByLocal(LocalEvento local){
 		TypedQuery<Evento> query = getEntityManager().createNamedQuery("findByLocal",Evento.class);
-		query.setParameter("local",local.ordinal());
+		query.setParameter("local",local);
 		return query.getResultList();
 	}
 }
