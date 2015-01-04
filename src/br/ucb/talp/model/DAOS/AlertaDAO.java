@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.projeto.model.factory.ManagerFactory;
 
@@ -48,4 +49,5 @@ public class AlertaDAO {
 		getEntityManager().remove(alerta);
 		getEntityManager().getTransaction().commit();
 	}
+	
 }

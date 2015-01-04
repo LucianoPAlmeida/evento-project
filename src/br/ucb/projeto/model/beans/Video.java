@@ -1,5 +1,7 @@
 package br.ucb.projeto.model.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,13 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "tb_videos")
 @NamedQueries({
 	@NamedQuery(name = "allVideos",query = "select a from Video a")
 })
-public class Video {
+@XmlRootElement
+public class Video implements Serializable {
+	private static final long serialVersionUID = 5842885115525985444L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

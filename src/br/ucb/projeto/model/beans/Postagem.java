@@ -14,11 +14,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import br.ucb.projeto.util.DateUtil;
 @Entity
 @Table(name = "tb_postagens")
 @NamedQueries({
 	@NamedQuery(name = "allPostagens",query = "select a from Postagem a")
 })
+@XmlRootElement
 public class Postagem implements Serializable{
 	
 	private static final long serialVersionUID = -392495796361211470L;
@@ -60,11 +66,23 @@ public class Postagem implements Serializable{
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+	@XmlTransient
 	public Calendar getData() {
 		return data;
 	}
 	public void setData(Calendar data) {
 		this.data = data;
+	}
+	@XmlElement
+	public String getDataString(){
+		if(getData() == null ) return null;
+		int mes = getData().get(Calendar.MONTH)+1;
+		return DateUtil.stringIntComZerosEsquerda(getData().get(Calendar.DAY_OF_MONTH))+"/"+DateUtil.stringIntComZerosEsquerda(mes)+"/"+getData().get(Calendar.YEAR);
+	}
+	@XmlElement
+	public String getHoraString(){
+		if(getData() == null) return null;
+		return DateUtil.stringIntComZerosEsquerda(getData().get(Calendar.HOUR_OF_DAY))+":"+DateUtil.stringIntComZerosEsquerda(getData().get(Calendar.MINUTE));
 	}
 	@Override
 	public int hashCode() {

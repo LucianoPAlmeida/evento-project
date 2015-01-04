@@ -12,7 +12,7 @@
 </head>
 
 <h:body>
-	<h:form enctype="multipart/form-data">
+	<h:form>
 		<h:outputLabel value="Postagem" styleClass="labelTitulo"/>
 		<br/>
 		<br/>
@@ -33,7 +33,7 @@
 		</div>
 		<br/>
 		<div class="divBotoes">
-			<h:commandButton rendered="#{postagemBean.updating}" value="Alterar" action="#{postagemBean.alterar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{postagemBean.updating}" value="Salvar Alterações" action="#{postagemBean.alterar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			<h:commandButton rendered="#{not postagemBean.updating}" value="Publicar" action="#{postagemBean.postar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			<h:commandButton value="Cancelar" immediate="true" action="#{postagemBean.cancelar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 		</div>

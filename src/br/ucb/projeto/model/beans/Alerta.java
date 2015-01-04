@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import br.ucb.projeto.util.DateUtil;
@@ -22,6 +23,7 @@ import br.ucb.projeto.util.DateUtil;
 @NamedQueries({
 	@NamedQuery(name = "allAlertas",query = "select a from Alerta a")
 })
+@XmlRootElement
 public class Alerta implements Serializable{
 	
 	private static final long serialVersionUID = -3178316612012862493L;

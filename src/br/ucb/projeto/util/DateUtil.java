@@ -25,5 +25,4 @@ public class DateUtil {
 		}
 		return str;
 	}
-	
 }

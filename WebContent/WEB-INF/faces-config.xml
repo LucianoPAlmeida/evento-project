@@ -64,6 +64,10 @@
 			<to-view-id>cadastroAlerta.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>listarAlerta</from-outcome>
+			<to-view-id>listagemAlertas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>cadastrarPostagem</from-outcome>
 			<to-view-id>cadastroPostagem.xhtml</to-view-id>
 		</navigation-case>

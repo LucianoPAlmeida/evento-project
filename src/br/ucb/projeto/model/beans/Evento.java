@@ -31,7 +31,8 @@ import br.ucb.projeto.util.DateUtil;
 @Table(name = "tb_eventos")
 @XmlRootElement
 @NamedQueries({
-	@NamedQuery(name = "getAllEventos",query = "select a from Evento a")
+	@NamedQuery(name = "getAllEventos",query = "select a from Evento a"),
+	@NamedQuery(name = "findByLocal",query = "select a from Evento a where a.local=:local")
 })
 public class Evento implements Serializable{
 

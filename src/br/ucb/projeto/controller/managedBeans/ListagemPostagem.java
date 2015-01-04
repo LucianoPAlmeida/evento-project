@@ -9,9 +9,8 @@ import br.ucb.talp.model.DAOS.PostagemDAO;
 @ManagedBean(name = "postagemListagem")
 public class ListagemPostagem {
 	private PostagemDAO daoPostagem;
-	
+	private Postagem currentPostagem;
 	public ListagemPostagem(){
-		System.out.println(new PostagemDAO().getAll());
 		setDaoPostagem(new PostagemDAO());
 	}
 
@@ -21,6 +20,19 @@ public class ListagemPostagem {
 
 	public void setDaoPostagem(PostagemDAO daoPostagem) {
 		this.daoPostagem = daoPostagem;
+	}
+	
+	public Postagem getCurrentPostagem() {
+		return currentPostagem;
+	}
+
+	public void setCurrentPostagem(Postagem currentPostagem) {
+		this.currentPostagem = currentPostagem;
+	}
+	public String detalhar(Integer id){
+		Postagem postagem = getDaoPostagem().find(id);
+		setCurrentPostagem(postagem);
+		return null;
 	}
 	public String excluir(Integer id){
 		getDaoPostagem().delete(id);

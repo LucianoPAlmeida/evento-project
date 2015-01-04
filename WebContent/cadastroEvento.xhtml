@@ -20,7 +20,9 @@
 			<div class="divLabel">
 				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
 			</div>
-			<h:inputText id="title" value="#{eventoBean.evento.title}" required="true" requiredMessage="O título do Evento é obrigatório"/>
+			<h:inputText id="title" value="#{eventoBean.evento.title}" required="true" requiredMessage="O título do Evento é obrigatório" validatorMessage="O título deve ter no maximo 100 caracteres!">
+				<f:validateLength maximum="100"/>
+			</h:inputText>
 		</div>
 		<br/>
 		<div>

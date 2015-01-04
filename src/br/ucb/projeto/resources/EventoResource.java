@@ -9,6 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.ucb.projeto.model.beans.Evento;
+import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.talp.model.DAOS.EventoDAO;
 @Path("/eventos")
 public class EventoResource {
@@ -28,8 +29,20 @@ public class EventoResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Evento> getAll(){
-		return getDaoEvento().getAll();
+	public List<Evento> getEventos(@QueryParam("local")String local){
+		List<Evento> lista = null;
+		if(local != null){
+			if(local.equalsIgnoreCase("UCB")){
+				lista = getDaoEvento().findByLocal(LocalEvento.UCB);
+			}else if(local.equalsIgnoreCase("FNAC")){
+				lista = getDaoEvento().findByLocal(LocalEvento.UCB);
+			}else if(local.equalsIgnoreCase("cultura")){
+				lista = getDaoEvento().findByLocal(LocalEvento.LIVRARIA_CULTURA);
+			}
+		}else{
+			lista = getDaoEvento().getAll();
+		}
+		return lista;
 	}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

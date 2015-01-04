@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.ucb.projeto.model.beans.Evento;
+import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.talp.model.persistense.ImagePersistence;
 
@@ -67,5 +68,9 @@ public class EventoDAO{
 		}
 		return list;
 	}
-
+	public List<Evento> findByLocal(LocalEvento local){
+		TypedQuery<Evento> query = getEntityManager().createNamedQuery("findByLocal",Evento.class);
+		query.setParameter("local",local.ordinal());
+		return query.getResultList();
+	}
 }
