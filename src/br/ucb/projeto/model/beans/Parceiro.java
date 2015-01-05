@@ -2,6 +2,7 @@ package br.ucb.projeto.model.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Parceiro implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	@Column(length = 1000)
 	private String descricao;
 	private ImagePath logo;
 	private TipoParceiro tipo;

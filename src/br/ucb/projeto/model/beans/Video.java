@@ -1,7 +1,10 @@
 package br.ucb.projeto.model.beans;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +27,7 @@ public class Video implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
+	@Column(length = 1000)
 	private String descricao;
 	private String link;
 	
@@ -67,7 +71,18 @@ public class Video implements Serializable {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
+	public String getYouTubeId(){
+		if(getLink()!= null){
+			try {
+				URL url = new URL(getLink());
+				return url.getQuery().replace("v=","");
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
+	}
 	
 	@Override
 	public int hashCode() {

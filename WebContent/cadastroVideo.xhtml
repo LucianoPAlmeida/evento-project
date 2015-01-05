@@ -12,24 +12,41 @@
 </head>
 
 <h:body>
-	<h:form enctype="multipart/form-data">
+	<h:form>
 		<h:outputLabel value="Video" styleClass="labelTitulo"/>
 		<br/>
 		<br/>
 		<div>
 			<div class="divLabel">
-				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
+				<h:outputLabel value="Título" styleClass="labelPadrao"/>
 			</div>
-			<h:inputText required="true" requiredMessage="O título do Alerta é obrigatório"/>
+			<h:inputText required="true" value="#{videoBean.video.titulo}" requiredMessage="O título do Alerta é obrigatório" validatorMessage="O título do video deve conter no máximo 200 caracteres!">
+				<f:validateLength maximum="200"/>
+			</h:inputText>
 		</div>
 		<br/>
 		<div>
 			<div class="divLabel">
 				<h:outputLabel value="Descrição" styleClass="labelPadrao"/>
 			</div>
-			<h:inputTextarea required="true" requiredMessage="A descrição do Alerta é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
+			<h:inputTextarea required="true" value="#{videoBean.video.descricao}"  requiredMessage="A descrição do Alerta é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
 				<f:validateLength minimum="10" maximum="500"/>
 			</h:inputTextarea>
+		</div>
+		<br/>
+		<div>
+			<div class="divLabel">
+				<h:outputLabel value="Link" styleClass="labelPadrao"/>
+			</div>
+			<h:inputText style="width:350px;" required="true" requiredMessage="Link do video é obrigatório!" value="#{videoBean.video.link}" validatorMessage="O link deve estar no seguinte formato: https://www.youtube.com/watch?v=goInA2sgWNs">
+				<f:validateRegex pattern="https://www\.youtube.com/watch\?v=[a-zA-Z0-9]+"/>
+			</h:inputText>
+		</div>
+		<br/>
+		<div class="divBotoes">
+			<h:commandButton rendered="#{videoBean.updating}" value="Salvar Alterações" action="#{videoBean.alterar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{not videoBean.updating}" value="Publicar" action="#{videoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton value="Cancelar" immediate="true" action="#{videoBean.cancelar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 		</div>
 		<br/>
 		<h:messages styleClass="msgErroPadrao"/>

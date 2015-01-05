@@ -3,6 +3,7 @@ package br.ucb.projeto.model.beans;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Palestrante implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	@Column(length = 1000)
 	private String summary;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_photo")

@@ -75,7 +75,14 @@
 			<from-outcome>listarPostagem</from-outcome>
 			<to-view-id>listagemPostagens.xhtml</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-outcome>cadastrarVideo</from-outcome>
+			<to-view-id>cadastroVideo.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listarVideo</from-outcome>
+			<to-view-id>listagemVideos.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	
