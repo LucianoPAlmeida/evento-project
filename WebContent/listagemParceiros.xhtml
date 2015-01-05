@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Parceiro</ui:insert></title>
+  <script type="text/javascript" src="http://#{indexBean.aplicationDomain}/EventoProject/javascripts/scripts.js">
+  	
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
+</head>
+
+<h:body>
+	<h:form>
+		<h:outputLabel value="Parceiros" styleClass="labelTitulo"/>
+		<h:commandLink value="Página principal" action="principal" style="float:rigth;"/>
+		<br/>
+		<br/>
+		<h:outputLabel rendered="#{empty parceiroListagem.daoParceiro.all}" value="Não há parceiros cadastrados!" styleClass="labelPadrao" />
+		<h:dataTable rendered="#{not empty parceiroListagem.daoParceiro.all}" value="#{parceiroListagem.daoParceiro.all}" var="parceiro">
+			<h:column>
+				<h:graphicImage value="http://#{indexBean.aplicationDomain}/EventoProject/#{parceiro.logo.simplePath}" width="40" height="40"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				#{parceiro.nome}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Tipo</f:facet>
+				#{parceiro.tipo.toString()}
+			</h:column>
+			<h:column>
+				<h:commandButton value="Editar" action="#{parceiroListagem.editar(parceiro.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</h:column>
+			<h:column>
+			 	<h:commandButton value="Excluir" action="#{parceiroListagem.excluir(parceiro.id)}" onclick="return deletar();" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</h:column>
+		</h:dataTable>
+		<br/>
+	</h:form>
+</h:body>
+
+</html>
+

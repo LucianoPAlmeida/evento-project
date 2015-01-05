@@ -15,6 +15,7 @@
 <h:body>
 	<h:form>
 		<h:outputLabel value="Palestrantes" styleClass="labelTitulo"/>
+		<h:commandLink value="Página principal" action="principal"/>
 		<br/>
 		<br/>
 		<h:outputLabel rendered="#{empty palestranteListagem.daoPalestrante.all}" value="Não há palestrantes cadastrados!" styleClass="labelPadrao" />
@@ -27,16 +28,13 @@
 				#{palestrante.name}
 			</h:column>
 			<h:column>
-				<f:facet name="header">Editar</f:facet>
 				<h:commandButton value="Editar" action="#{palestranteListagem.alterar(palestrante.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 			<h:column>
-			 	<f:facet name="header">Excluir</f:facet>
 			 	<h:commandButton value="Excluir" action="#{palestranteListagem.excluir(palestrante.id)}" onclick="return deletar();" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 		</h:dataTable>
 		<br/>
-		<h:commandLink value="Página principal" action="principal"/>
 	</h:form>
 </h:body>
 

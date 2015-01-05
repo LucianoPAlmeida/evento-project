@@ -19,7 +19,7 @@
 		<h:inputHidden id ="points"/>
 		<h:inputHidden id ="pointToDelete" />
 		<div style="margin-left: 200px">
-			<h:outputLabel value="Mapa-UCB" styleClass="labelTitulo"/><br/>
+			<h:outputLabel value="Mapa-UCB" styleClass="labelTitulo" style="margin-left:300px;"/><br/>
 		</div>
 		<h:outputLabel rendered="#{not mapaBean.mapaExiste}" value="Mapa ainda não foi cadastrado!" styleClass="labelMenor"/>
 		<h:graphicImage style="position:relative;z-index: 0;" rendered="#{mapaBean.mapaExiste}" value="http://#{indexBean.aplicationDomain}/EventoProject/images/mapa.png?randomParamiter=#{indexBean.randomValue}" height="500" width="800" onclick="getClickPosition(event);" styleClass="mapaImage">
@@ -30,9 +30,9 @@
 		</h:graphicImage>
 		<div style="float: left;width: 140px;text-align: center;">
 			<h:outputLabel value="Eventos" styleClass="labelPadrao"/><br/>
-			<h:outputLabel rendered="#{empty mapaBean.eventosNaoMarcados}"  value="Não há eventos não marcados!" styleClass="labelMenor"/>
+			<h:outputLabel rendered="#{empty mapaBean.eventosNaoMarcados}"  value="Não há eventos não marcados na UCB!" styleClass="labelMenor"/>
 			<br/>
-			<h:selectOneListbox disabled="#{not mapaBean.mapaExiste}" required="true" requiredMessage="Escolha um evento!" id="listaEventos" rendered="#{not empty mapaBean.eventosNaoMarcados}" value="#{mapaBean.evento}" converter="eventoIdConverter" size="12" styleClass="listBox">
+			<h:selectOneListbox disabled="#{not mapaBean.mapaExiste}" id="listaEventos" rendered="#{not empty mapaBean.eventosNaoMarcados}" value="#{mapaBean.evento}" converter="eventoIdConverter" size="22" styleClass="listBox">
 				<f:selectItems var="evento" value="#{mapaBean.eventosNaoMarcados}" itemValue="#{evento}" itemLabel="#{evento.title}"/>
 			</h:selectOneListbox>
 			<br/>

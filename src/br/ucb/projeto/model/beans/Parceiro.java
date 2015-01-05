@@ -2,13 +2,16 @@ package br.ucb.projeto.model.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +19,8 @@ import br.ucb.projeto.model.enuns.TipoParceiro;
 @Entity
 @Table(name = "tb_parceiros")
 @NamedQueries({
-	@NamedQuery(name = "allParceiros",query = "select a from Parceiro a")
+	@NamedQuery(name = "allParceiros",query = "select a from Parceiro a"),
+	@NamedQuery(name  = "findByTipo",query = "select a from Parceiro a where a.tipo=:tipo")
 })
 @XmlRootElement
 public class Parceiro implements Serializable{
@@ -29,6 +33,8 @@ public class Parceiro implements Serializable{
 	private String nome;
 	@Column(length = 1000)
 	private String descricao;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_logo")
 	private ImagePath logo;
 	private TipoParceiro tipo;
 	public Parceiro() {

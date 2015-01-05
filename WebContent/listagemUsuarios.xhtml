@@ -15,6 +15,7 @@
 <h:body>
 	<h:form rendered="${usuario.administrador}">
 		<h:outputLabel value="Usuários" styleClass="labelTitulo"/>	
+		<h:commandLink action="principal" value="Página principal"/>
 		<br/>
 		<br/>
 		<h:outputLabel value="Nenhum usuário cadastrado!" rendered="#{empty listagemUsuarios.daoUsuario.all}" styleClass="labelPadrao"/>
@@ -38,7 +39,6 @@
 			</h:column>
 		</h:dataTable>
 		<br/>
-		<h:commandLink action="principal" value="Página principal"/>
 	</h:form>
 </h:body>
 

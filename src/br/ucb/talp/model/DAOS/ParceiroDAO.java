@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.ucb.projeto.model.beans.Parceiro;
+import br.ucb.projeto.model.enuns.TipoParceiro;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.talp.model.persistense.ImagePersistence;
 
@@ -54,5 +55,11 @@ public class ParceiroDAO {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().remove(parceiro);
 		getEntityManager().getTransaction().commit();
+	}
+	
+	public List<Parceiro> findByTipo(TipoParceiro tipo){
+		TypedQuery<Parceiro> query = getEntityManager().createNamedQuery("findByTipo",Parceiro.class);
+		query.setParameter("tipo",tipo);
+		return query.getResultList();
 	}
 }

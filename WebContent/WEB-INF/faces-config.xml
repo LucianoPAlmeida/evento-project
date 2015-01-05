@@ -83,6 +83,19 @@
 			<from-outcome>listarVideo</from-outcome>
 			<to-view-id>listagemVideos.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>cadastrarParceiro</from-outcome>
+			<to-view-id>cadastroParceiro.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listarParceiro</from-outcome>
+			<to-view-id>listagemParceiros.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>confimarParceiro</from-outcome>
+			<to-view-id>confirmacaoParceiro.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	

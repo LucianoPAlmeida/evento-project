@@ -68,6 +68,15 @@ public class EventoDAO{
 		}
 		return list;
 	}
+	public List<Evento> getEventosSemPonto(MapPointDAO daoPontos,LocalEvento local){
+		List<Evento> list = new ArrayList<Evento>();
+		for(Evento e : getEventosSemPonto(daoPontos)){
+			if(e.getLocal() == local){
+				list.add(e);
+			}
+		}
+		return list;
+	}
 	public List<Evento> findByLocal(LocalEvento local){
 		TypedQuery<Evento> query = getEntityManager().createNamedQuery("findByLocal",Evento.class);
 		query.setParameter("local",local);

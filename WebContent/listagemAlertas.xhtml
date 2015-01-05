@@ -16,6 +16,7 @@
 	<div style="float: left;">
 	<h:form>
 		<h:outputLabel value="Alertas" styleClass="labelTitulo"/>
+		<h:commandLink value="Página principal" action="principal"/>
 		<br/>
 		<br/>
 		<h:outputLabel rendered="#{empty alertaListagem.daoAlerta.all}" value="Não há nenhum alerta cadastrado!" styleClass="labelPadrao" />
@@ -33,7 +34,6 @@
 			</h:column>
 		</h:dataTable>
 		<br/>
-		<h:commandLink value="Página principal" action="principal"/>
 	</h:form>
 	</div>
 	<h:form style="float: left;margin-left:100px;" rendered="#{not empty alertaListagem.curretAlerta}">

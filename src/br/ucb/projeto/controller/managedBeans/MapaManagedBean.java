@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -15,6 +16,7 @@ import javax.servlet.http.Part;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.beans.MapPoint;
+import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.util.ImageManipupulation;
 import br.ucb.talp.model.DAOS.EventoDAO;
 import br.ucb.talp.model.DAOS.MapPointDAO;
@@ -90,13 +92,17 @@ public class MapaManagedBean {
 		return false;
 	}
 	public String actionAddPonto(){
-		MapPointDAO dao = new MapPointDAO();
-		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		String points = request.getParameter("j_idt5:points");
-		if(points != null){
-			MapPoint p = new MapPoint(points);
-			p.setIdEvento(getEvento().getId());
-			dao.add(p);
+		if(getEvento() == null){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Escolha um evento!"));
+		}else{
+			MapPointDAO dao = new MapPointDAO();
+			HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			String points = request.getParameter("j_idt5:points");
+			if(points != null){
+				MapPoint p = new MapPoint(points);
+				p.setIdEvento(getEvento().getId());
+				dao.add(p);
+			}
 		}
 		return null;
 	}
@@ -117,7 +123,7 @@ public class MapaManagedBean {
 		return null;
 	}
 	public List<Evento> getEventosNaoMarcados(){
-		return new EventoDAO().getEventosSemPonto(getDaoMap());
+		return new EventoDAO().getEventosSemPonto(getDaoMap(),LocalEvento.UCB);
 	}
 	public String alterarMapa(){
 		getDaoMap().deleteAll();
