@@ -39,7 +39,7 @@
 				<h:outputLabel value="Link" styleClass="labelPadrao"/>
 			</div>
 			<h:inputText style="width:350px;" required="true" requiredMessage="Link do video é obrigatório!" value="#{videoBean.video.link}" validatorMessage="O link deve estar no seguinte formato: https://www.youtube.com/watch?v=goInA2sgWNs">
-				<f:validateRegex pattern="https://www\.youtube.com/watch\?v=[a-zA-Z0-9]+"/>
+				<f:validateRegex pattern="https://www\.youtube.com/watch\?v=[a-zA-Z0-9-_]+"/>
 			</h:inputText>
 		</div>
 		<br/>
