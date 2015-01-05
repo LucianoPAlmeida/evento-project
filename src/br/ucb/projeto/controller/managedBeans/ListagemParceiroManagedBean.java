@@ -31,7 +31,10 @@ public class ListagemParceiroManagedBean {
 	}
 	
 	public String excluir(Integer id){
-		getDaoParceiro().delete(id, true);
+		Parceiro parceiro = getDaoParceiro().find(id);
+		if(parceiro != null && parceiro.getLogo() != null){
+			getDaoParceiro().delete(id,!parceiro.getLogo().getSimplePath().endsWith("parceiroDefault.png"));
+		}
 		return null;
 	}
 }
