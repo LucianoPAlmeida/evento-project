@@ -27,6 +27,10 @@
 				<h:commandButton value="#{alerta.titulo}" action="#{alertaListagem.detalhar(alerta.id)}"  styleClass="botaoPostagem"/>
 			</h:column>
 			<h:column>
+				<f:facet name="header">Data</f:facet>
+				#{alerta.dataString}
+			</h:column>
+			<h:column>
 				<h:commandButton value="Editar" action="#{alertaListagem.alterar(alerta.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 			<h:column>

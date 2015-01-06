@@ -1,5 +1,7 @@
 package br.ucb.talp.model.DAOS;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.projeto.model.factory.ManagerFactory;
+import br.ucb.projeto.util.DateUtil;
 
 public class AlertaDAO {
 	private EntityManager entityManager;
@@ -50,4 +53,13 @@ public class AlertaDAO {
 		getEntityManager().getTransaction().commit();
 	}
 	
+	public List<Alerta> alertsAfterDate(Calendar date){
+		List<Alerta> ret = new ArrayList<Alerta>();
+		for(Alerta a : getAll()){
+			if(DateUtil.numericValue(date) <= DateUtil.numericValue(a.getData())){
+				ret.add(a);
+			}
+		}
+		return ret;
+	}
 }

@@ -25,4 +25,8 @@ public class DateUtil {
 		}
 		return str;
 	}
+	public static int numericValue(Calendar data){
+		if(data == null) return -1;
+		return (data.get(Calendar.YEAR)*100000)+((data.get(Calendar.MONTH)+1)*1000)+data.get(Calendar.DAY_OF_MONTH);
+	}
 }

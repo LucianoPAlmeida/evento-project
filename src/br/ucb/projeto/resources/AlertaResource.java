@@ -9,6 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.ucb.projeto.model.beans.Alerta;
+import br.ucb.projeto.util.DateUtil;
 import br.ucb.talp.model.DAOS.AlertaDAO;
 
 @Path("alertas")
@@ -41,6 +42,14 @@ public class AlertaResource {
 	@Path("/find")
 	public Alerta find(@QueryParam("id") Integer id){
 		return getDaoAlerta().find(id);
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/after")
+	public List<Alerta> alertaAfterDate(@QueryParam("date")String date){
+		if(!date.matches("\\d{4}-\\d{2}-\\d{2}")) return null;
+		return getDaoAlerta().alertsAfterDate(DateUtil.dateFromString(date));
 	}
 	
 }
