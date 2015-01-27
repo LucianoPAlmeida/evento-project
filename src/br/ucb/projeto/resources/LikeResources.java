@@ -2,6 +2,7 @@ package br.ucb.projeto.resources;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -39,7 +40,9 @@ public class LikeResources {
 	}
 	@POST
 	@Path("/giveLike")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void giveLike(@FormParam("idEvento")Integer idEvento,@FormParam("idUser")Integer idUser){
+		System.out.println("giveLike [idEvento = "+idEvento+",idUser = "+idUser+"]");
 		Like like = new Like();
 		like.setIdEvento(idEvento);
 		like.setIdUser(idUser);
@@ -69,7 +72,9 @@ public class LikeResources {
 	}
 	@POST
 	@Path("/deleteLike")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void deleteLike(@FormParam("idEvento")Integer idEvento,@FormParam("idUser")Integer idUser){
+		System.out.println("deleteLike [idEvento = "+idEvento+",idUser = "+idUser+"]");
 		new LikeDAO().delete(idUser, idEvento);
 	}
 	

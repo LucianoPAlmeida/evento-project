@@ -68,7 +68,7 @@ public class LikeDAO{
 	
 	public void delete(Integer idUser,Integer idEvento){
 		getEntityManager().getTransaction().begin();
-		getEntityManager().createQuery("delete a from Like where a.idUser="+idUser+" and a.idEvento="+idEvento).executeUpdate();
+		getEntityManager().createQuery("delete from Like a where a.idUser="+idUser+" and a.idEvento="+idEvento).executeUpdate();
 		getEntityManager().getTransaction().commit();
 	}
 

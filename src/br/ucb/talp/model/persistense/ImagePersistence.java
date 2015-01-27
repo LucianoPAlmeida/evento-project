@@ -17,7 +17,6 @@ public class ImagePersistence {
 	private String serverPath;
 	private String tmpFileName;
 	private ImagePersistence(){
-		
 	}
 	public String getServerPath() {
 		return serverPath;
