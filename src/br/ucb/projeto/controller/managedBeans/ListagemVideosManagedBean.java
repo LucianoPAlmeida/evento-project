@@ -3,9 +3,9 @@ package br.ucb.projeto.controller.managedBeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import br.ucb.projeto.model.DAOS.VideoDAO;
 import br.ucb.projeto.model.beans.Video;
 import br.ucb.projeto.util.FacesUtil;
-import br.ucb.talp.model.DAOS.VideoDAO;
 
 @RequestScoped
 @ManagedBean(name = "videoListagem")

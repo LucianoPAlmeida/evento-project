@@ -1,17 +1,16 @@
-package br.ucb.talp.model.DAOS;
+package br.ucb.projeto.model.DAOS;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
-import br.ucb.projeto.model.beans.Video;
+import br.ucb.projeto.model.beans.Postagem;
 import br.ucb.projeto.model.factory.ManagerFactory;
 
-public class VideoDAO {
+public class PostagemDAO {
 private EntityManager entityManager;
 	
-	public VideoDAO(){
+	public PostagemDAO(){
 		setEntityManager(ManagerFactory.getInstance());
 	}
 	
@@ -22,31 +21,31 @@ private EntityManager entityManager;
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	public void add(Video video) {
+	public void add(Postagem alerta) {
 		getEntityManager().getTransaction().begin();
-		getEntityManager().persist(video);
+		getEntityManager().persist(alerta);
 		getEntityManager().getTransaction().commit();
 	}
 
-	public Video find(Object key) {
-		return getEntityManager().find(Video.class,key);
+	public Postagem find(Object key) {
+		return getEntityManager().find(Postagem.class,key);
 	}
 
-	public List<Video> getAll() {
-		TypedQuery<Video> query = getEntityManager().createNamedQuery("allVideos",Video.class);
+	public List<Postagem> getAll() {
+		TypedQuery<Postagem> query = getEntityManager().createNamedQuery("allPostagens",Postagem.class);
 		return query.getResultList();
 	}
 
-	public void update(Video entity) {
+	public void update(Postagem entity) {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().merge(entity);
 		getEntityManager().getTransaction().commit();
 	}
 	
 	public void delete(Integer id) {
-		Video video = find(id);
+		Postagem postegem = find(id);
 		getEntityManager().getTransaction().begin();
-		getEntityManager().remove(video);
+		getEntityManager().remove(postegem);
 		getEntityManager().getTransaction().commit();
 	}
 }

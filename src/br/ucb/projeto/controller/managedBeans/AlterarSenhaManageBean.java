@@ -6,8 +6,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import br.ucb.projeto.model.DAOS.UsuarioDAO;
 import br.ucb.projeto.model.beans.Usuario;
-import br.ucb.talp.model.DAOS.UsuarioDAO;
 
 @ManagedBean(name = "alterarSenhaBean")
 @RequestScoped

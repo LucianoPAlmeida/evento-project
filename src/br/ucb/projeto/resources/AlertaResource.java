@@ -8,9 +8,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.AlertaDAO;
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.projeto.util.DateUtil;
-import br.ucb.talp.model.DAOS.AlertaDAO;
 
 @Path("alertas")
 public class AlertaResource {

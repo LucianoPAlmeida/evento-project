@@ -1,4 +1,4 @@
-package br.ucb.talp.model.DAOS;
+package br.ucb.projeto.model.DAOS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.factory.ManagerFactory;
-import br.ucb.talp.model.persistense.ImagePersistence;
+import br.ucb.projeto.model.persistense.ImagePersistence;
 
 public class EventoDAO{
 	private EntityManager entityManager;

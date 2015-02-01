@@ -9,10 +9,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import br.ucb.projeto.model.DAOS.UsuarioDAO;
 import br.ucb.projeto.model.beans.Usuario;
 import br.ucb.projeto.model.factory.ManagerFactory;
-import br.ucb.talp.model.DAOS.UsuarioDAO;
-import br.ucb.talp.model.persistense.ImagePersistence;
+import br.ucb.projeto.model.persistense.ImagePersistence;
 @SessionScoped
 @ManagedBean(name = "loginBean")
 public class LoginManageBean {

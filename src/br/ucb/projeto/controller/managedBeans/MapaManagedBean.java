@@ -13,14 +13,14 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
+import br.ucb.projeto.model.DAOS.MapPointDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.beans.MapPoint;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.persistense.ImagePersistence;
 import br.ucb.projeto.util.ImageManipupulation;
-import br.ucb.talp.model.DAOS.EventoDAO;
-import br.ucb.talp.model.DAOS.MapPointDAO;
-import br.ucb.talp.model.persistense.ImagePersistence;
 @RequestScoped
 @ManagedBean(name = "mapaBean")
 public class MapaManagedBean {

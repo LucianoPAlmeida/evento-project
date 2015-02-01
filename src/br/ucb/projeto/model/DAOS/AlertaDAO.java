@@ -1,4 +1,4 @@
-package br.ucb.talp.model.DAOS;
+package br.ucb.projeto.model.DAOS;
 
 import java.util.ArrayList;
 import java.util.Calendar;

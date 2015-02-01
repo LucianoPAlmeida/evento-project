@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.PalestranteDAO;
 import br.ucb.projeto.model.beans.Palestrante;
-import br.ucb.talp.model.DAOS.PalestranteDAO;
 @Path("/palestrantes")
 public class PalestranteResource {
 	private PalestranteDAO daoPalestrante;

@@ -13,13 +13,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.persistense.ImagePersistence;
 import br.ucb.projeto.util.DateUtil;
-import br.ucb.talp.model.DAOS.EventoDAO;
-import br.ucb.talp.model.persistense.ImagePersistence;
 @SessionScoped
 @ManagedBean(name = "eventoBean")
 public class CadastroEventoManagedBean {

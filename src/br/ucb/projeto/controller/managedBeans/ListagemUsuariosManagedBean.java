@@ -3,7 +3,7 @@ package br.ucb.projeto.controller.managedBeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import br.ucb.talp.model.DAOS.UsuarioDAO;
+import br.ucb.projeto.model.DAOS.UsuarioDAO;
 @RequestScoped
 @ManagedBean(name = "listagemUsuarios")
 public class ListagemUsuariosManagedBean {

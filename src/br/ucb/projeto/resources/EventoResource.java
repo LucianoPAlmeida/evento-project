@@ -8,9 +8,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.enuns.LocalEvento;
-import br.ucb.talp.model.DAOS.EventoDAO;
 @Path("/eventos")
 public class EventoResource {
 	private EventoDAO daoEvento;

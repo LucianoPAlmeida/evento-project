@@ -7,10 +7,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
+import br.ucb.projeto.model.DAOS.MapPointDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.util.FacesUtil;
-import br.ucb.talp.model.DAOS.EventoDAO;
-import br.ucb.talp.model.DAOS.MapPointDAO;
 @RequestScoped
 @ManagedBean(name = "eventoListagem")
 public class ListagemEventosManagedBean {

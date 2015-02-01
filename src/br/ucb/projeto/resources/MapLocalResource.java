@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.MapPointDAO;
 import br.ucb.projeto.model.beans.MapPoint;
-import br.ucb.talp.model.DAOS.MapPointDAO;
 
 @Path("/locais")
 public class MapLocalResource {

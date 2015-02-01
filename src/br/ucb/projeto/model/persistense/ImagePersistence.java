@@ -1,4 +1,4 @@
-package br.ucb.talp.model.persistense;
+package br.ucb.projeto.model.persistense;
 
 import java.io.File;
 import java.io.IOException;

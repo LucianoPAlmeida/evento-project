@@ -8,9 +8,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import br.ucb.projeto.model.DAOS.AlertaDAO;
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.projeto.util.DateUtil;
-import br.ucb.talp.model.DAOS.AlertaDAO;
 @SessionScoped
 @ManagedBean(name = "alertaBean")
 public class CadastroAlertaManageBean {

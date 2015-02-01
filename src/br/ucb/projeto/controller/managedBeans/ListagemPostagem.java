@@ -2,9 +2,9 @@ package br.ucb.projeto.controller.managedBeans;
 
 import javax.faces.bean.ManagedBean;
 
+import br.ucb.projeto.model.DAOS.PostagemDAO;
 import br.ucb.projeto.model.beans.Postagem;
 import br.ucb.projeto.util.FacesUtil;
-import br.ucb.talp.model.DAOS.PostagemDAO;
 
 @ManagedBean(name = "postagemListagem")
 public class ListagemPostagem {

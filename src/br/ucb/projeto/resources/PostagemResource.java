@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.PostagemDAO;
 import br.ucb.projeto.model.beans.Postagem;
-import br.ucb.talp.model.DAOS.PostagemDAO;
 
 @Path("/postagens")
 public class PostagemResource {

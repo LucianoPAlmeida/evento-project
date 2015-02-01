@@ -3,8 +3,8 @@ package br.ucb.projeto.controller.managedBeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.ucb.projeto.model.DAOS.VideoDAO;
 import br.ucb.projeto.model.beans.Video;
-import br.ucb.talp.model.DAOS.VideoDAO;
 @SessionScoped
 @ManagedBean(name  = "videoBean")
 public class CadastroVideoManagedBean {

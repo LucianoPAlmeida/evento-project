@@ -7,11 +7,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
 
+import br.ucb.projeto.model.DAOS.ParceiroDAO;
 import br.ucb.projeto.model.beans.ImagePath;
 import br.ucb.projeto.model.beans.Parceiro;
 import br.ucb.projeto.model.enuns.TipoParceiro;
-import br.ucb.talp.model.DAOS.ParceiroDAO;
-import br.ucb.talp.model.persistense.ImagePersistence;
+import br.ucb.projeto.model.persistense.ImagePersistence;
 @SessionScoped
 @ManagedBean(name = "parceiroBean")
 public class CadastroParceiroManagedBean {

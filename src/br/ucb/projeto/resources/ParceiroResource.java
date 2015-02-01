@@ -8,9 +8,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.ParceiroDAO;
 import br.ucb.projeto.model.beans.Parceiro;
 import br.ucb.projeto.model.enuns.TipoParceiro;
-import br.ucb.talp.model.DAOS.ParceiroDAO;
 
 @Path("/parceiros")
 public class ParceiroResource {

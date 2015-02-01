@@ -3,9 +3,9 @@ package br.ucb.projeto.controller.managedBeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import br.ucb.projeto.model.DAOS.PalestranteDAO;
 import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.util.FacesUtil;
-import br.ucb.talp.model.DAOS.PalestranteDAO;
 @RequestScoped
 @ManagedBean(name = "palestranteListagem")
 public class ListagemPalestrantesManageBean {

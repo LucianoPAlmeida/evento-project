@@ -3,9 +3,9 @@ package br.ucb.projeto.controller.managedBeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import br.ucb.projeto.model.DAOS.AlertaDAO;
 import br.ucb.projeto.model.beans.Alerta;
 import br.ucb.projeto.util.FacesUtil;
-import br.ucb.talp.model.DAOS.AlertaDAO;
 
 @RequestScoped
 @ManagedBean(name = "alertaListagem")

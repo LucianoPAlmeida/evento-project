@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.VideoDAO;
 import br.ucb.projeto.model.beans.Video;
-import br.ucb.talp.model.DAOS.VideoDAO;
 
 @Path("/videos")
 public class VideoResource {

@@ -11,8 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.ucb.projeto.model.DAOS.LikeDAO;
 import br.ucb.projeto.model.beans.Like;
-import br.ucb.talp.model.DAOS.LikeDAO;
 
 @Path("/likes")
 public class LikeResources {

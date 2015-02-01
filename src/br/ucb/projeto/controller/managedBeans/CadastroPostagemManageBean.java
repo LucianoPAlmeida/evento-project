@@ -5,8 +5,8 @@ import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.ucb.projeto.model.DAOS.PostagemDAO;
 import br.ucb.projeto.model.beans.Postagem;
-import br.ucb.talp.model.DAOS.PostagemDAO;
 @SessionScoped
 @ManagedBean(name = "postagemBean")
 public class CadastroPostagemManageBean {

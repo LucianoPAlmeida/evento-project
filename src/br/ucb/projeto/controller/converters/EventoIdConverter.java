@@ -5,8 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
 import br.ucb.projeto.model.beans.Evento;
-import br.ucb.talp.model.DAOS.EventoDAO;
 
 @FacesConverter("eventoIdConverter")
 public class EventoIdConverter implements Converter{

@@ -7,8 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.ucb.projeto.model.DAOS.UsuarioDAO;
 import br.ucb.projeto.model.beans.Usuario;
-import br.ucb.talp.model.DAOS.UsuarioDAO;
 @RequestScoped
 @ManagedBean(name = "usuarioBean")
 public class UsuarioManagedBean {
