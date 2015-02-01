@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h ="http://xmlns.jcp.org/jsf/html"
+      xmlns:f ="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Participantes</ui:insert></title>
+  <script type="text/javascript" src="http://#{indexBean.aplicationDomain}/EventoProject/javascripts/scripts.js">
+  	
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
+</head>
+
+<h:body>
+	<h:form>
+		<div style="margin-top: 130px;margin-left: 340px;">
+			<h:outputLabel styleClass="labelTitulo" value="Participantes"/>
+			<h:commandLink value="Páginal Principal" action="principal" immediate="true"/>
+		</div>
+		<div style="margin-top: 30px;margin-left: 300px;height: 280px;width: 550px;">
+			<div style="float: left;">
+				<h:outputLabel rendered="#{empty participanteBean.daoEvento.all}" styleClass="labelPadrao" value="Não há eventos cadastrados!"/>
+				<h:selectOneListbox rendered="#{not empty participanteBean.daoEvento.all}" styleClass="lista" size="15" value="#{participanteBean.eventoSelecionado}" converter="eventoIdConverter" required="true" requiredMessage="Por favor selecione um evento!">
+					<f:selectItems value="#{participanteBean.daoEvento.all}" var="evento" itemLabel="#{evento.title}" itemValue="#{evento}"></f:selectItems>
+				</h:selectOneListbox>
+			</div>
+			<div style="float: left;margin-left: 50px;">
+				<h:graphicImage style="margin-left: 20px;" value="http://#{indexBean.aplicationDomain}/EventoProject/images/icon_download.png"></h:graphicImage>
+				<br/>
+				<h:commandLink disabled="#{empty participanteBean.daoEvento.all}" value="Download" onclick="clickOnDownLoad()" action="#{participanteBean.baixarArquivo()}"/>
+			</div>
+		</div>
+		<br/>
+		<div style="float: none;margin-top: 10px;margin-left: 300px;">
+			<h:messages id="msgErro" styleClass="msgErroPadrao"/>
+		</div>
+	</h:form>
+</h:body>
+
+</html>
+

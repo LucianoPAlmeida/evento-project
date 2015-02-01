@@ -16,6 +16,8 @@
 <class>br.ucb.projeto.model.beans.Video</class>
 <class>br.ucb.projeto.model.beans.Postagem</class>
 <class>br.ucb.projeto.model.beans.Parceiro</class>
+<class>br.ucb.projeto.model.beans.Pessoa</class>
+
 <properties>
 <!--   INICIO DAS CONFIGURACOES JDBC   -->
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

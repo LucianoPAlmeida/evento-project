@@ -96,6 +96,10 @@
 			<from-outcome>confimarParceiro</from-outcome>
 			<to-view-id>confirmacaoParceiro.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>relatorioParticipantes</from-outcome>
+			<to-view-id>participantesInterface.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	

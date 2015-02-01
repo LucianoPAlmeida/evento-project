@@ -107,3 +107,6 @@ function mouseOutMenuButton(e) {
 	element.style.color = "#686868";
 	
 }
+function clickOnDownLoad() {
+	document.getElementById("j_idt5:msgErro").style.visibility = "hidden";
+}

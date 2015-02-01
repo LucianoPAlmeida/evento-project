@@ -62,6 +62,11 @@
 				<h:commandButton value="Listar" action="listarParceiro" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</div>
 			
+			<div class="divMenu">	
+				<h:outputLabel value="Participantes" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="labelMenu"/><br/>
+				<h:commandButton value="Baixar Lista" action="relatorioParticipantes" styleClass="botaoMenu" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			</div>
+			
 			<div class="divMenu">
 				<h:commandButton value="Sair" action="#{loginBean.sair()}" onmouseover="mouseOnLabel(event);" onmouseout="mouseOutLabel(event);" styleClass="botaoSair"/>
 			</div>

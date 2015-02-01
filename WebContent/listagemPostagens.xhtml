@@ -21,7 +21,7 @@
 		<br/>
 		<h:outputLabel rendered="#{empty postagemListagem.daoPostagem.all}" value="Não há nenhuma postagem publicada!" styleClass="labelPadrao" />
 		<br/>
-		<h:dataTable var="postagem" value="#{postagemListagem.daoPostagem.all}" >
+		<h:dataTable rendered="#{not empty postagemListagem.daoPostagem.all}" var="postagem" value="#{postagemListagem.daoPostagem.all}" >
 			<h:column>
 				<f:facet name="header">Título</f:facet>
 				<h:commandButton value="#{postagem.titulo}" action="#{postagemListagem.detalhar(postagem.id)}" styleClass="botaoPostagem"/>
@@ -34,7 +34,6 @@
 			</h:column>
 		</h:dataTable>
 		<br/>
-		<h:commandLink value="Página principal" action="principal"/>
 	</h:form>
 	</div>
 	<h:form style="float: left;margin-left:100px;" rendered="#{not empty postagemListagem.currentPostagem}">
