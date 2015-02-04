@@ -57,6 +57,7 @@ public class PessoaResource {
 			@FormParam("university")String universidade,@FormParam("course")String curso,
 			@FormParam("semester")String semestre,@FormParam("job")String emprego,
 			@FormParam("workplace")String localTrabalho,@FormParam("event")List<String> codigosEventos){
+		
 		Pessoa pessoa = new Pessoa(rg, nome, sobreNome, telefone, universidade, curso,(!semestre.isEmpty())?Integer.parseInt(semestre):0, emprego, localTrabalho, codigosEventos);
 		System.out.println(pessoa);
 		getDaoPessoa().update(pessoa);
