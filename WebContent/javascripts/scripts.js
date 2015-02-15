@@ -110,3 +110,28 @@ function mouseOutMenuButton(e) {
 function clickOnDownLoad() {
 	document.getElementById("j_idt5:msgErro").style.visibility = "hidden";
 }
+function verificarEstadoTipoEvento(showMessage){
+	var element = document.getElementById("j_idt5:tiposEvento");
+	var value = element.options[element.selectedIndex].text;
+	if(value == "Palestra"){
+		if(document.getElementById("isEmptyPalestrantes").value == 'true'){
+			element.selectedIndex = 1;
+			document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "hidden";
+			document.getElementById("j_idt5:inputPalestrantes").disabled = true;
+			document.getElementById("j_idt5:inputPalestrantes").style.visibility = "hidden";
+			if(showMessage){
+				alert("Palestra não pode ser selecionada pois não há palestrantes cadastrados!");
+			}
+		}else{
+			document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "visible";
+			document.getElementById("j_idt5:inputPalestrantes").disabled = false;
+			document.getElementById("j_idt5:inputPalestrantes").style.visibility = "visible";
+		}
+	}else if(value == "Workshop"){
+		document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "hidden";
+		document.getElementById("j_idt5:inputPalestrantes").disabled = true;
+		document.getElementById("j_idt5:inputPalestrantes").style.visibility = "hidden";
+	}
+	
+}
+

@@ -69,4 +69,11 @@ public class UsuarioDAO {
 			update(user);
 		}
 	}
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

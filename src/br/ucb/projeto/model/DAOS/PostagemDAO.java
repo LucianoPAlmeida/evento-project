@@ -48,4 +48,11 @@ private EntityManager entityManager;
 		getEntityManager().remove(postegem);
 		getEntityManager().getTransaction().commit();
 	}
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

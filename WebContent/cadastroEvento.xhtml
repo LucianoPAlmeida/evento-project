@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
 </head>
 
-<h:body>
+<h:body onload="verificarEstadoTipoEvento(false);">
 	<h:form enctype="multipart/form-data">
 		<h:outputLabel value="Evento" styleClass="labelTitulo"/>
 		<br/>
@@ -20,7 +20,7 @@
 			<div class="divLabel">
 				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
 			</div>
-			<h:inputText id="title" value="#{eventoBean.evento.title}" required="true" requiredMessage="O título do Evento é obrigatório" validatorMessage="O título deve ter no maximo 100 caracteres!">
+			<h:inputText id="title" value="#{eventoBean.titulo}" required="true" requiredMessage="O título do Evento é obrigatório" validatorMessage="O título deve ter no maximo 100 caracteres!">
 				<f:validateLength maximum="100"/>
 			</h:inputText>
 		</div>
@@ -29,17 +29,22 @@
 			<div class="divLabel">
 				<h:outputLabel value="Local" styleClass="labelPadrao"/>
 			</div>
-			<h:selectOneMenu value="#{eventoBean.evento.local}">
+			<h:selectOneMenu value="#{eventoBean.localEvento}">
 				<f:selectItems value="#{eventoBean.allLocais()}" var="local" itemLabel="#{local.toString()}" itemValue="#{local}"/>
 			</h:selectOneMenu>
 		</div>
 		<br/>
 		<div>
+			<input id="isEmptyPalestrantes" type="hidden" value="#{empty eventoBean.daoPalestrante.all}"/>
 			<div class="divLabel">
 				<h:outputLabel value="Tipo de Evento" styleClass="labelPadrao"/>
 			</div>
-			<h:selectOneMenu value="#{eventoBean.evento.tipo}">
+			<h:selectOneMenu id="tiposEvento" value="#{eventoBean.tipoEvento}" onchange="verificarEstadoTipoEvento(true);">
 				<f:selectItems value="#{eventoBean.allEventos()}" var="evento" itemLabel="#{evento.toString()}" itemValue="#{evento}"/>
+			</h:selectOneMenu>
+				<h:outputLabel id="labelInputPalestrantes" value="Selecione o Palestrante " styleClass="labelPadrao"/>
+			<h:selectOneMenu id="inputPalestrantes" value="#{eventoBean.palestrante}" converter="palestranteConverter" validator="#{eventoBean.validateRequiredPalestrante}">
+				<f:selectItems var="palestrante" value="#{eventoBean.daoPalestrante.all}" itemLabel="#{palestrante.name}" itemValue="#{palestrante}"/>
 			</h:selectOneMenu>
 		</div>
 		<br/>
@@ -67,7 +72,7 @@
 			<div class="divLabel">
 				<h:outputLabel value="Descrição " styleClass="labelPadrao"/>
 			</div>
-			<h:inputTextarea id="summary" value="#{eventoBean.evento.summary}" required="true" requiredMessage="A descrição do Evento é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
+			<h:inputTextarea id="summary" value="#{eventoBean.descricao}" required="true" requiredMessage="A descrição do Evento é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
 				<f:validateLength minimum="10" maximum="500"/>
 			</h:inputTextarea>
 		</div>
@@ -78,6 +83,7 @@
 			</div>
 			<h:inputFile id="fileInput" value="#{eventoBean.file}" validator="fileValidator" />
 		</div>
+		<br/>
 		<br/>
 		<div class="divBotoes">
 			<h:commandButton rendered="#{eventoBean.updating}" value="Alterar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>

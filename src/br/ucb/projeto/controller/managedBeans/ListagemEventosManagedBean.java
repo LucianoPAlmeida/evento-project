@@ -37,7 +37,7 @@ public class ListagemEventosManagedBean {
 			e.setData(new GregorianCalendar());
 		}
 		ceMb.setDataAux(e.getData());
-		ceMb.setEvento(e);
+		ceMb.addEventoToUpdate(e);
 		ceMb.setUpdating(true);
 		return "cadastroEvento";
 	}

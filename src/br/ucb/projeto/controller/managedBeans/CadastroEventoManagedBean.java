@@ -9,13 +9,20 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import br.ucb.projeto.model.DAOS.EventoDAO;
+import br.ucb.projeto.model.DAOS.PalestranteDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.ImagePath;
+import br.ucb.projeto.model.beans.Palestra;
+import br.ucb.projeto.model.beans.Palestrante;
+import br.ucb.projeto.model.beans.WorkShop;
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.persistense.ImagePersistence;
@@ -23,6 +30,13 @@ import br.ucb.projeto.util.DateUtil;
 @SessionScoped
 @ManagedBean(name = "eventoBean")
 public class CadastroEventoManagedBean {
+	//Campos Formulário
+	private String titulo;
+	private String descricao;
+	private LocalEvento localEvento;
+	private EventType tipoEvento;
+	private Palestrante palestrante;
+	
 	private Evento evento;
 	private Part file;
 	private String horaEvento;
@@ -30,16 +44,61 @@ public class CadastroEventoManagedBean {
 	private boolean updating,loadFile;
 	private String tmpPath;
 	public GregorianCalendar dataAux;
+	private PalestranteDAO daoPalestrante;
+	
 	public CadastroEventoManagedBean(){
-		setEvento(new Evento());
+		setDaoPalestrante(new PalestranteDAO());
 		setTmpPath("http://"+IndexManagedBean.APPLICATION_DOMAIN+"/EventoProject/images/"+ImagePersistence.getInstance().getTmpFileName()+".png");
 	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public LocalEvento getLocalEvento() {
+		return localEvento;
+	}
+
+	public void setLocalEvento(LocalEvento localEvento) {
+		this.localEvento = localEvento;
+	}
+	
+	public EventType getTipoEvento() {
+		return tipoEvento;
+	}
+
+	public void setTipoEvento(EventType tipoEvento) {
+		this.tipoEvento = tipoEvento;
+	}
+
+	public Palestrante getPalestrante() {
+		return palestrante;
+	}
+
+	public void setPalestrante(Palestrante palestrante) {
+		this.palestrante = palestrante;
+	}
+
 	public Evento getEvento() {
 		return evento;
 	}
+	
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
+	
 	public Part getFile() {
 		return file;
 	}
@@ -78,8 +137,21 @@ public class CadastroEventoManagedBean {
 	public void setTmpPath(String tmpPath) {
 		this.tmpPath = tmpPath;
 	}
+	
+	public PalestranteDAO getDaoPalestrante() {
+		return daoPalestrante;
+	}
+
+	public void setDaoPalestrante(PalestranteDAO daoPalestrante) {
+		this.daoPalestrante = daoPalestrante;
+	}
+
 	public void clear(){
-		setEvento(new Evento());
+		setTitulo(null);
+		setDescricao(null);
+		setLocalEvento(LocalEvento.FNAC);
+		setTipoEvento(EventType.PALESTRA);
+		setPalestrante(null);
 		setHoraEvento("00");
 		setMinutoEvento("00");
 		setLoadFile(false);
@@ -97,6 +169,13 @@ public class CadastroEventoManagedBean {
 	public void setDataAux(GregorianCalendar dataAux) {
 		this.dataAux = dataAux;
 	}
+	
+	public void validateRequiredPalestrante(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		if(getTipoEvento() == EventType.PALESTRA && value == null){
+			throw new ValidatorException(new FacesMessage("Por favor selecione o palestrante!"));
+		}
+	}
+	
 	public String cadastrar(){
 		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
@@ -106,11 +185,22 @@ public class CadastroEventoManagedBean {
 		if((getFile().getSize() != 0)){
 			uploadFile();
 		}else if(!isUpdating()){
+			if(getTipoEvento() == EventType.PALESTRA){
+				setEvento(new Palestra(getTitulo(), getDescricao(),null,null,getPalestrante()));
+				getEvento().setLocal(getLocalEvento());
+			}else if(getTipoEvento() == EventType.WORKSHOP){
+				setEvento(new WorkShop(getTitulo(), getDescricao(), null, null));
+				getEvento().setLocal(getLocalEvento());
+			}
 			getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
 			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		if(!preencherData()){
 			return null;
+		}
+		if(getEvento() instanceof Palestra){
+			Palestra p = (Palestra)getEvento();
+			p.setPalestrante(getPalestrante());
 		}
 		return "confirmar";
 	}
@@ -191,6 +281,13 @@ public class CadastroEventoManagedBean {
 			list.add(DateUtil.stringIntComZerosEsquerda(i));
 		}
 		return list;
+	}
+	public void addEventoToUpdate(Evento evento){
+		setTitulo(evento.getTitle());
+		setDescricao(evento.getSummary());
+		setTipoEvento(evento.getTipo());
+		setLocalEvento(evento.getLocal());
+		setEvento(evento);
 	}
 	public String voltar(){
 		clear();

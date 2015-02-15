@@ -1,8 +1,11 @@
 package br.ucb.projeto.controller.managedBeans;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
+import br.ucb.projeto.model.DAOS.EventoDAO;
 import br.ucb.projeto.model.DAOS.PalestranteDAO;
 import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.util.FacesUtil;
@@ -31,7 +34,12 @@ public class ListagemPalestrantesManageBean {
 	
 	public String excluir(String id){
 		Palestrante p = getDaoPalestrante().find(Integer.parseInt(id));
-		getDaoPalestrante().delete(Integer.parseInt(id),!p.getPhoto().getSimplePath().endsWith("palestranteDefalut.png"));
+		EventoDAO dao = new EventoDAO();
+		if(dao.eventoTemPalestrante(p)){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("O Palestrante não pode ser excluído pois está associado a um evento!"));
+		}else{
+			getDaoPalestrante().delete(Integer.parseInt(id),!p.getPhoto().getSimplePath().endsWith("palestranteDefalut.png"));
+		}
 		return null;
 	}
 }

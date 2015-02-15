@@ -62,4 +62,11 @@ public class ParceiroDAO {
 		query.setParameter("tipo",tipo);
 		return query.getResultList();
 	}
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

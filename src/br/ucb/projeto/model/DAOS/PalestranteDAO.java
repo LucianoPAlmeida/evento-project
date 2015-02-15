@@ -55,5 +55,11 @@ public class PalestranteDAO{
 		getEntityManager().remove(palestrante);
 		getEntityManager().getTransaction().commit();
 	}
-
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

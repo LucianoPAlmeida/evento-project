@@ -49,4 +49,11 @@ private EntityManager entityManager;
 		getEntityManager().remove(video);
 		getEntityManager().getTransaction().commit();
 	}
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.ucb.projeto.model.beans.Evento;
+import br.ucb.projeto.model.beans.Palestra;
+import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.projeto.model.persistense.ImagePersistence;
@@ -82,4 +84,26 @@ public class EventoDAO{
 		query.setParameter("local",local);
 		return query.getResultList();
 	}
+	
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
+	public boolean eventoTemPalestrante(Palestrante palestrante){
+		if(palestrante != null){
+			for(Evento e : getAll()){
+				if(e instanceof Palestra){
+					Palestra p = (Palestra)e;
+					if(p.getPalestrante().equals(palestrante)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 }

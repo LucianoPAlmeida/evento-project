@@ -62,4 +62,12 @@ public class AlertaDAO {
 		}
 		return ret;
 	}
+	
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }

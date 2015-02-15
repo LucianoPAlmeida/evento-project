@@ -41,6 +41,10 @@
 			  #{evento.horaEvento}
 			</h:column>
 			<h:column >
+			  <f:facet name="header">Local</f:facet>
+			  #{evento.local}
+			</h:column>
+			<h:column >
 			  <h:commandButton value="Editar" action="#{eventoListagem.alterar(evento.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			</h:column>
 			<h:column >

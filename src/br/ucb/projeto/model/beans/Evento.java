@@ -12,7 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -23,18 +26,29 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonSubTypes.Type;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.codehaus.jackson.annotate.JsonTypeInfo.As;
+
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.util.DateUtil;
-
 @Entity
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @Table(name = "tb_eventos")
 @XmlRootElement
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.WRAPPER_OBJECT, property="type")
+@JsonSubTypes({
+      @Type(value=Palestra.class, name="palestra"),
+      @Type(value=WorkShop.class, name="workshop")
+  })
 @NamedQueries({
 	@NamedQuery(name = "getAllEventos",query = "select a from Evento a"),
 	@NamedQuery(name = "findByLocal",query = "select a from Evento a where a.local=:local")
 })
-public class Evento implements Serializable{
+public abstract class Evento implements Serializable{
 
 	private static final long serialVersionUID = -4619336347660324525L;
 	@Id
@@ -51,8 +65,6 @@ public class Evento implements Serializable{
 	private LocalEvento local;
 	@Temporal(TemporalType.TIMESTAMP)
 	private GregorianCalendar data;
-	@Enumerated(EnumType.ORDINAL)
-	private EventType tipo;
 	
 	public Evento(){
 		setPhoto(new ImagePath());
@@ -95,6 +107,9 @@ public class Evento implements Serializable{
 	public void setLocal(LocalEvento local) {
 		this.local = local;
 	}
+	@XmlElement
+	public abstract EventType getTipo();
+	
 	@XmlTransient
 	public GregorianCalendar getData() {
 		return data;
@@ -112,12 +127,6 @@ public class Evento implements Serializable{
 		int hora = getData().get(Calendar.HOUR_OF_DAY);
 		int minuto = getData().get(Calendar.MINUTE);
 		return DateUtil.stringIntComZerosEsquerda(hora) +":"+DateUtil.stringIntComZerosEsquerda(minuto);
-	}
-	public EventType getTipo() {
-		return tipo;
-	}
-	public void setTipo(EventType tipo) {
-		this.tipo = tipo;
 	}
 	public ImagePath getPhoto() {
 		return photo;

@@ -14,9 +14,12 @@
 
 <h:body>
 	<h:form>
+		
 		<h:outputLabel value="Palestrantes" styleClass="labelTitulo"/>
 		<h:commandLink value="Página principal" action="principal"/>
 		<br/>
+		<br/>
+		<h:messages styleClass="msgErroPadrao"/>
 		<br/>
 		<h:outputLabel rendered="#{empty palestranteListagem.daoPalestrante.all}" value="Não há palestrantes cadastrados!" styleClass="labelPadrao" />
 		<h:dataTable rendered="#{not empty palestranteListagem.daoPalestrante.all}" value="#{palestranteListagem.daoPalestrante.all}" var="palestrante">

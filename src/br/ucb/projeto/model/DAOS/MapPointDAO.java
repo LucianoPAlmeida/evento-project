@@ -60,4 +60,12 @@ public class MapPointDAO{
 		}
 		return false;
 	}
+	
+	public int getQuantidade(){
+		return getAll().size();
+	}
+	
+	public boolean isEmpty(){
+		return (getQuantidade() == 0);
+	}
 }
