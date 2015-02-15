@@ -9,15 +9,12 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonTypeName;
-
 import br.ucb.projeto.model.enuns.EventType;
 
 
 @Entity
 @Table(name = "tb_palestras")
 @XmlRootElement
-@JsonTypeName("palestra")
 public class Palestra extends Evento{
 	private static final long serialVersionUID = -3484866591100093218L;
 	@ManyToOne

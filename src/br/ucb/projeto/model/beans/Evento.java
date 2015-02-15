@@ -24,12 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonSubTypes.Type;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
-import org.codehaus.jackson.annotate.JsonTypeInfo.As;
 
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
@@ -39,11 +35,7 @@ import br.ucb.projeto.util.DateUtil;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @Table(name = "tb_eventos")
 @XmlRootElement
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.WRAPPER_OBJECT, property="type")
-@JsonSubTypes({
-      @Type(value=Palestra.class, name="palestra"),
-      @Type(value=WorkShop.class, name="workshop")
-  })
+@XmlSeeAlso({Palestra.class, WorkShop.class})
 @NamedQueries({
 	@NamedQuery(name = "getAllEventos",query = "select a from Evento a"),
 	@NamedQuery(name = "findByLocal",query = "select a from Evento a where a.local=:local")
