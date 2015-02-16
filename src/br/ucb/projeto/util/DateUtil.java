@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 	public static String stringFromDate(Calendar date){
+		if(date == null)return null;
 		return date.get(Calendar.YEAR)+"-"+stringIntComZerosEsquerda((date.get(Calendar.MONTH)+1))+"-"+stringIntComZerosEsquerda(date.get(Calendar.DAY_OF_MONTH));
 	}
 	
@@ -28,5 +29,13 @@ public class DateUtil {
 	public static int numericValue(Calendar data){
 		if(data == null) return -1;
 		return (data.get(Calendar.YEAR)*100000)+((data.get(Calendar.MONTH)+1)*1000)+data.get(Calendar.DAY_OF_MONTH);
+	}
+	public static String stringTimeFromDate(Calendar calendar){
+		if(calendar == null)return null;
+		return stringIntComZerosEsquerda(calendar.get(Calendar.HOUR_OF_DAY))+":"+stringIntComZerosEsquerda(calendar.get(Calendar.MINUTE))+":"+stringIntComZerosEsquerda(calendar.get(Calendar.SECOND));
+	}
+	public static String dateTimeStringFromDate(Calendar calendar){
+		if(calendar == null)return null;
+		return stringFromDate(calendar)+" "+stringTimeFromDate(calendar);
 	}
 }

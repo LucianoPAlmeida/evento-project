@@ -14,13 +14,19 @@
 <h:body>
 	<h:form>
 			<div style="margin-left: 50px;width: 300px;">
-				<h:outputLabel value="#{eventoBean.evento.tipo.toString()}" styleClass="labelTitulo"/><br/>
+				<h:outputLabel value="#{eventoBean.evento.tipo.toString()}" styleClass="labelTitulo"/><br/><br/>
 				<h:outputLabel value="#{eventoBean.evento.title}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="Local #{eventoBean.evento.local.toString()}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="#{eventoBean.evento.summary}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="Dia #{eventoBean.evento.diaEvento}" styleClass="labelPadrao"/>
 				<h:outputLabel value="Hora #{eventoBean.evento.horaEvento}" styleClass="labelPadrao"/><br/>
 			</div>
+			<br/>
+			<h:panelGroup style="margin-left: 50px;" rendered="#{not empty eventoBean.palestrante}">
+				<h:outputLabel value="Palestrante" styleClass="labelPadrao"/>
+				<h:outputLabel value="#{eventoBean.palestrante.name}" styleClass="labelPadrao"/>
+			</h:panelGroup>
+			<br/>
 			<br/>
 			<h:graphicImage id="photo" value="#{eventoBean.tmpPath}?randomParamiter=#{indexBean.randomValue}" height="300" width="300" styleClass="imagens"/><br/>
 			<div class="divBotoes">

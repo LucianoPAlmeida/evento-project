@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.ucb.projeto.model.beans.Evento;
@@ -12,6 +13,7 @@ import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.projeto.model.persistense.ImagePersistence;
+import br.ucb.projeto.util.DateUtil;
 
 public class EventoDAO{
 	private EntityManager entityManager;
@@ -45,8 +47,17 @@ public class EventoDAO{
 
 	public void update(Evento entity) {
 		getEntityManager().getTransaction().begin();
-		getEntityManager().merge(entity);
+//		getEntityManager().merge(entity);
+		getEntityManager().merge(entity.getPhoto());
+		String nativeQuery = "update tb_eventos set type = '"+entity.getTipo().toString()+"'"
+				+ ",summary = '"+entity.getSummary()+"',title = '"+entity.getTitle()+"',DATA = '"+DateUtil.dateTimeStringFromDate(entity.getData())+"',"
+				+ "LOCAL = "+entity.getLocal().ordinal()+", id_photo = "+entity.getPhoto().getId()+",id_palestrante = "+((entity instanceof Palestra)?((Palestra)entity).getPalestrante().getId():"NULL")+" "
+						+ "where ID = "+entity.getId()+";";
+		Query query = getEntityManager().createNativeQuery(nativeQuery);
+		query.executeUpdate();
+		getEntityManager().flush();
 		getEntityManager().getTransaction().commit();
+	
 	}
 	
 	public void delete(Object id,boolean deleteImage) {

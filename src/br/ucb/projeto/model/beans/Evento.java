@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,12 +30,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
+
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.util.DateUtil;
 @Entity
 @MappedSuperclass
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name = "tb_eventos")
 @XmlRootElement
 @XmlSeeAlso({Palestra.class, WorkShop.class})
@@ -40,6 +46,9 @@ import br.ucb.projeto.util.DateUtil;
 	@NamedQuery(name = "getAllEventos",query = "select a from Evento a"),
 	@NamedQuery(name = "findByLocal",query = "select a from Evento a where a.local=:local")
 })
+@Cache(type = CacheType.NONE)
+@DiscriminatorColumn(name= "type",discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("Evento")
 public abstract class Evento implements Serializable{
 
 	private static final long serialVersionUID = -4619336347660324525L;
@@ -70,6 +79,11 @@ public abstract class Evento implements Serializable{
 		setSummary(summary);
 		setPhoto(photo);
 		setData(data);
+	}
+	public Evento(String title, String summary,ImagePath photo,
+			GregorianCalendar data,LocalEvento local) {
+		this(title, summary, photo, data);
+		setLocal(local);
 	}
 	public Integer getId() {
 		return id;

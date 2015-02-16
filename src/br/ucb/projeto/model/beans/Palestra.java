@@ -2,6 +2,7 @@ package br.ucb.projeto.model.beans;
 
 import java.util.GregorianCalendar;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,11 +11,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.ucb.projeto.model.enuns.EventType;
+import br.ucb.projeto.model.enuns.LocalEvento;
 
 
 @Entity
 @Table(name = "tb_palestras")
 @XmlRootElement
+@DiscriminatorValue("Palestra")
 public class Palestra extends Evento{
 	private static final long serialVersionUID = -3484866591100093218L;
 	@ManyToOne
@@ -24,9 +27,18 @@ public class Palestra extends Evento{
 	public Palestra() {
 		
 	}
+	public Palestra(Evento evento){
+		this(evento.getTitle(), evento.getSummary(),evento.getPhoto(), evento.getData(), evento.getLocal(), null);
+		setId(evento.getId());
+	}
 	public Palestra(String title, String summary,ImagePath photo,
 			GregorianCalendar data,Palestrante palestrante){
 		super(title, summary, photo, data);
+		setPalestrante(palestrante);
+	}
+	public Palestra(String title, String summary,ImagePath photo,
+			GregorianCalendar data,LocalEvento local,Palestrante palestrante){
+		super(title, summary, photo, data,local);
 		setPalestrante(palestrante);
 	}
 	@XmlElement
