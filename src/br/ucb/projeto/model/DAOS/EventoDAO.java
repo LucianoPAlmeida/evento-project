@@ -44,10 +44,9 @@ public class EventoDAO{
 		TypedQuery<Evento> query = getEntityManager().createNamedQuery("getAllEventos",Evento.class);
 		return query.getResultList();
 	}
-
+	//Para que o update funcione corretamente o objeto de photo do tipo ImagePath deve vir com o idOriginal.
 	public void update(Evento entity) {
 		getEntityManager().getTransaction().begin();
-//		getEntityManager().merge(entity);
 		getEntityManager().merge(entity.getPhoto());
 		String nativeQuery = "update tb_eventos set type = '"+entity.getTipo().toString()+"'"
 				+ ",summary = '"+entity.getSummary()+"',title = '"+entity.getTitle()+"',DATA = '"+DateUtil.dateTimeStringFromDate(entity.getData())+"',"

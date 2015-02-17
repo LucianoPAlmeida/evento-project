@@ -155,8 +155,8 @@ public abstract class Evento implements Serializable{
 	@Override
 	public String toString() {
 		return "Evento [id=" + getId() + ", title=" + getTitle() + ", summary=" + getSummary()
-				+ ", photo=" + getPhoto() + ", data=" + getData() + ", tipo=" + getTipo()
-				+ "]";
+				+ ", photo=" + getPhoto() + ", local=" + getLocal() + ", data=" + getDiaEvento()
+				+ ",hora="+getHoraEvento()+"]";
 	}
 	
 }

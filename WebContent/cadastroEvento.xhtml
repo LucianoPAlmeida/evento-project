@@ -20,7 +20,7 @@
 			<div class="divLabel">
 				<h:outputLabel value="Titulo" styleClass="labelPadrao"/>
 			</div>
-			<h:inputText id="title" value="#{eventoBean.titulo}" required="true" requiredMessage="O título do Evento é obrigatório" validatorMessage="O título deve ter no maximo 100 caracteres!">
+			<h:inputText id="title" value="#{eventoBean.evento.title}" required="true" requiredMessage="O título do Evento é obrigatório" validatorMessage="O título deve ter no maximo 100 caracteres!">
 				<f:validateLength maximum="100"/>
 			</h:inputText>
 		</div>
@@ -29,7 +29,7 @@
 			<div class="divLabel">
 				<h:outputLabel value="Local" styleClass="labelPadrao"/>
 			</div>
-			<h:selectOneMenu value="#{eventoBean.localEvento}">
+			<h:selectOneMenu value="#{eventoBean.evento.local}">
 				<f:selectItems value="#{eventoBean.allLocais()}" var="local" itemLabel="#{local.toString()}" itemValue="#{local}"/>
 			</h:selectOneMenu>
 		</div>
@@ -72,7 +72,7 @@
 			<div class="divLabel">
 				<h:outputLabel value="Descrição " styleClass="labelPadrao"/>
 			</div>
-			<h:inputTextarea id="summary" value="#{eventoBean.descricao}" required="true" requiredMessage="A descrição do Evento é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
+			<h:inputTextarea id="summary" value="#{eventoBean.evento.summary}" required="true" requiredMessage="A descrição do Evento é obrigatória!" validatorMessage="Descrição entre 10 e 500 caracteres" styleClass="areaTextoPadrao">
 				<f:validateLength minimum="10" maximum="500"/>
 			</h:inputTextarea>
 		</div>

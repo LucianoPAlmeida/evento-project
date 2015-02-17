@@ -28,11 +28,9 @@ import br.ucb.projeto.model.persistense.ImagePersistence;
 import br.ucb.projeto.util.DateUtil;
 @SessionScoped
 @ManagedBean(name = "eventoBean")
+@SuppressWarnings("serial")
 public class CadastroEventoManagedBean {
 	//Campos Formulário
-	private String titulo;
-	private String descricao;
-	private LocalEvento localEvento;
 	private EventType tipoEvento;
 	private Palestrante palestrante;
 	
@@ -47,31 +45,14 @@ public class CadastroEventoManagedBean {
 	
 	public CadastroEventoManagedBean(){
 		setDaoPalestrante(new PalestranteDAO());
+		Evento evento = new Evento() {
+			@Override
+			public EventType getTipo() {
+				return null;
+			}
+		};
+		setEvento(evento);
 		setTmpPath("http://"+IndexManagedBean.APPLICATION_DOMAIN+"/EventoProject/images/"+ImagePersistence.getInstance().getTmpFileName()+".png");
-	}
-	
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public LocalEvento getLocalEvento() {
-		return localEvento;
-	}
-
-	public void setLocalEvento(LocalEvento localEvento) {
-		this.localEvento = localEvento;
 	}
 	
 	public EventType getTipoEvento() {
@@ -146,15 +127,19 @@ public class CadastroEventoManagedBean {
 	}
 
 	public void clear(){
-		setTitulo(null);
-		setDescricao(null);
-		setLocalEvento(LocalEvento.FNAC);
 		setTipoEvento(EventType.PALESTRA);
 		setPalestrante(null);
 		setHoraEvento("00");
 		setMinutoEvento("00");
 		setLoadFile(false);
 		setUpdating(false);
+		Evento evento = new Evento() {
+			@Override
+			public EventType getTipo() {
+				return null;
+			}
+		};
+		setEvento(evento);
 		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 	}
 	public String getDataString(){
@@ -176,57 +161,43 @@ public class CadastroEventoManagedBean {
 	}
 	
 	public String cadastrar(){
+		fillSubClassInstance();
 		ImagePersistence imgPersistence = ImagePersistence.getInstance();
+		imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
 		if(isUpdating()){
-			imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
 			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
-			if(getTipoEvento() == EventType.PALESTRA && getEvento().getTipo() == EventType.WORKSHOP){
-				Evento evento = new Palestra(getTitulo(), getDescricao(), getEvento().getPhoto(),getEvento().getData(),getLocalEvento(),getPalestrante());
-				evento.setId(getEvento().getId());
-				setEvento(evento);
-				setPalestrante(null);
-			}
-			if(getTipoEvento() == EventType.WORKSHOP && getEvento().getTipo() == EventType.PALESTRA){
-				Evento evento = new WorkShop(getTitulo(),getDescricao(),getEvento().getPhoto(),getEvento().getData(),getLocalEvento());
-				evento.setId(getEvento().getId());
-				setEvento(evento);
-			}else{
-				getEvento().setLocal(getLocalEvento());
-				getEvento().setTitle(getTitulo());
-				getEvento().setSummary(getDescricao());
-			}
 		}
 		if((getFile().getSize() != 0)){
 			uploadFile();
 		}else if(!isUpdating()){
-			if(getTipoEvento() == EventType.PALESTRA){
-				setEvento(new Palestra(getTitulo(), getDescricao(),null,null,getLocalEvento(),getPalestrante()));
-			}else if(getTipoEvento() == EventType.WORKSHOP){
-				setEvento(new WorkShop(getTitulo(), getDescricao(), null, null,getLocalEvento()));
-			}
 			getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().getServerPath()+"eventoDefault.png"));
-			imgPersistence.delete(ImagePersistence.getInstance().getTmpFilePath());
 			imgPersistence.copy(getEvento().getPhoto().getPath(), ImagePersistence.getInstance().getTmpFilePath(), false);
 		}
 		if(!preencherData()){
 			return null;
-		}
-		if(getEvento() instanceof Palestra){
-			Palestra p = (Palestra)getEvento();
-			p.setPalestrante(getPalestrante());
-		}
+		}	
 		return "confirmar";
 	}
 	public void uploadFile(){
 		setLoadFile((getFile().getSize() != 0));
 		String formato = getFile().getContentType();
 		formato = formato.substring(formato.indexOf("/")+1);
-		getEvento().setPhoto(new ImagePath(ImagePersistence.getInstance().persist(getFile(),null, formato)));
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
+		ImagePersistence.getInstance().persist(getFile(),null, formato);
+	}
+	public void fillSubClassInstance(){
+		if(getTipoEvento() == EventType.PALESTRA){
+			setEvento(new Palestra(getEvento()));
+			((Palestra)getEvento()).setPalestrante(getPalestrante());
+		}else if(getTipoEvento() == EventType.WORKSHOP){
+			setEvento(new WorkShop(getEvento()));
+		}
 	}
 	public String confirmarCadastro(){
 		ImagePersistence imgPersistence = ImagePersistence.getInstance();
 		EventoDAO dao = new EventoDAO();
 		String simplePath = null;
+		fillSubClassInstance();
 		if(getEvento() != null && getEvento().getPhoto()!= null){
 			simplePath = getEvento().getPhoto().getSimplePath();
 		}
@@ -244,7 +215,7 @@ public class CadastroEventoManagedBean {
 		if(isLoadFile()){
 			String path = getEvento().getPhoto().getPath();
 			String newPath = imgPersistence.rename(imgPersistence.getTmpFilePath(), null);
-			getEvento().setPhoto(new ImagePath(newPath));
+			getEvento().getPhoto().setPath(newPath);
 			if(!path.endsWith("eventoDefault.png")){
 				imgPersistence.delete(path);
 			}
@@ -296,10 +267,7 @@ public class CadastroEventoManagedBean {
 		return list;
 	}
 	public void addEventoToUpdate(Evento evento){
-		setTitulo(evento.getTitle());
-		setDescricao(evento.getSummary());
 		setTipoEvento(evento.getTipo());
-		setLocalEvento(evento.getLocal());
 		if(evento instanceof Palestra){
 			Palestra p = (Palestra)evento;
 			setPalestrante(p.getPalestrante());
