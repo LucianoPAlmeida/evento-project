@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.enuns.PeriodoEvento;
 @Entity
 @Table(name = "tb_workshops")
 @XmlRootElement
@@ -18,17 +19,12 @@ public class WorkShop extends Evento{
 	public WorkShop() {
 	}
 	public WorkShop(Evento evento){
-		this(evento.getTitle(), evento.getSummary(),evento.getPhoto(), evento.getData(), evento.getLocal());
+		this(evento.getTitle(), evento.getSummary(),evento.getPhoto(), evento.getData(), evento.getLocal(),evento.getPeriodo());
 		setId(evento.getId());
 	}
 	public WorkShop(String title, String summary,ImagePath photo,
-			GregorianCalendar data){
-		super(title, summary, photo, data);
-	}
-	
-	public WorkShop(String title, String summary,ImagePath photo,
-			GregorianCalendar data,LocalEvento local){
-		super(title, summary, photo, data,local);
+			GregorianCalendar data,LocalEvento local,PeriodoEvento periodo){
+		super(title, summary, photo, data,local,periodo);
 	}
 	@Override
 	public EventType getTipo() {

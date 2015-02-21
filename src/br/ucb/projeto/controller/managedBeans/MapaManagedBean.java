@@ -67,7 +67,6 @@ public class MapaManagedBean {
 	public int getMapWidth(){
 		try {
 			BufferedImage bfImg = ImageIO.read(new File(getMapPath().getPath()));
-			System.out.println("width = "+bfImg.getWidth());
 			return bfImg.getWidth();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -19,7 +19,7 @@
 				<h:outputLabel value="Local #{eventoBean.evento.local.toString()}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="#{eventoBean.evento.summary}" styleClass="labelPadrao"/><br/><br/>
 				<h:outputLabel value="Dia #{eventoBean.evento.diaEvento}" styleClass="labelPadrao"/>
-				<h:outputLabel value="Hora #{eventoBean.evento.horaEvento}" styleClass="labelPadrao"/><br/>
+				<h:outputLabel value="Período #{eventoBean.evento.periodo.toString()}" styleClass="labelPadrao"/><br/>
 			</div>
 			<br/>
 			<h:panelGroup style="margin-left: 50px;" rendered="#{not empty eventoBean.palestrante}">

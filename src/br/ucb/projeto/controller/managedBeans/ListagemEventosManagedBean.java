@@ -30,9 +30,6 @@ public class ListagemEventosManagedBean {
 	public String alterar(String id){
 		Evento e = getDaoEvento().find(Integer.parseInt(id));
 		CadastroEventoManagedBean ceMb = FacesUtil.getManagedBean("eventoBean",CadastroEventoManagedBean.class);
-		String horario[] = e.getHoraEvento().split(":");
-		ceMb.setHoraEvento(horario[0]);
-		ceMb.setMinutoEvento(horario[1]);
 		if(e.getData().before(new GregorianCalendar())){
 			e.setData(new GregorianCalendar());
 		}

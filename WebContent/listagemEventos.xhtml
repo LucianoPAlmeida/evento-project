@@ -38,12 +38,12 @@
 			  #{evento.diaEvento}
 			</h:column>
 			<h:column >
-			  <f:facet name="header">Hora</f:facet>
-			  #{evento.horaEvento}
+			  <f:facet name="header">Período</f:facet>
+			  #{evento.periodo.toString()}
 			</h:column>
 			<h:column >
 			  <f:facet name="header">Local</f:facet>
-			  #{evento.local}
+			  #{evento.local.toString()}
 			</h:column>
 			<h:column >
 			  <h:commandButton value="Editar" action="#{eventoListagem.alterar(evento.id)}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>

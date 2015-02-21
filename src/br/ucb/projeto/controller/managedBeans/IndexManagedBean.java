@@ -8,7 +8,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name = "indexBean")
 @RequestScoped
 public class IndexManagedBean {
-	public static final String APPLICATION_DOMAIN = "www.thewallbreak.com";
+	public static final String APPLICATION_DOMAIN = "localhost:8080";
 	public IndexManagedBean() {
 	}
 	

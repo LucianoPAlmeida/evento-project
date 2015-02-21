@@ -24,6 +24,7 @@ import br.ucb.projeto.model.beans.Palestrante;
 import br.ucb.projeto.model.beans.WorkShop;
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.enuns.PeriodoEvento;
 import br.ucb.projeto.model.persistense.ImagePersistence;
 import br.ucb.projeto.util.DateUtil;
 @SessionScoped
@@ -36,8 +37,6 @@ public class CadastroEventoManagedBean {
 	
 	private Evento evento;
 	private Part file;
-	private String horaEvento;
-	private String minutoEvento;
 	private boolean updating,loadFile;
 	private String tmpPath;
 	public GregorianCalendar dataAux;
@@ -85,18 +84,6 @@ public class CadastroEventoManagedBean {
 	public void setFile(Part file) {
 		this.file = file;
 	}
-	public String getHoraEvento() {
-		return horaEvento;
-	}
-	public void setHoraEvento(String horaEvento) {
-		this.horaEvento = horaEvento;
-	}
-	public String getMinutoEvento() {
-		return minutoEvento;
-	}
-	public void setMinutoEvento(String minutoEvento) {
-		this.minutoEvento = minutoEvento;
-	}
 	public boolean isUpdating() {
 		return updating;
 	}
@@ -129,8 +116,6 @@ public class CadastroEventoManagedBean {
 	public void clear(){
 		setTipoEvento(EventType.PALESTRA);
 		setPalestrante(null);
-		setHoraEvento("00");
-		setMinutoEvento("00");
 		setLoadFile(false);
 		setUpdating(false);
 		Evento evento = new Evento() {
@@ -175,14 +160,13 @@ public class CadastroEventoManagedBean {
 		}
 		if(!preencherData()){
 			return null;
-		}	
+		}
 		return "confirmar";
 	}
 	public void uploadFile(){
 		setLoadFile((getFile().getSize() != 0));
 		String formato = getFile().getContentType();
 		formato = formato.substring(formato.indexOf("/")+1);
-		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 		ImagePersistence.getInstance().persist(getFile(),null, formato);
 	}
 	public void fillSubClassInstance(){
@@ -236,9 +220,6 @@ public class CadastroEventoManagedBean {
 			return false;
 		}else{
 			getEvento().setData(DateUtil.dateFromString(data));
-			Calendar dataEvento = getEvento().getData();
-			dataEvento.set(Calendar.HOUR_OF_DAY,Integer.parseInt(getHoraEvento()));
-			dataEvento.set(Calendar.MINUTE,Integer.parseInt(getMinutoEvento()));
 		}
 		return true;
 	}
@@ -247,6 +228,9 @@ public class CadastroEventoManagedBean {
 	}
 	public List<LocalEvento> allLocais(){
 		return Arrays.asList(LocalEvento.values());
+	}
+	public List<PeriodoEvento> allPeriodos(){
+		return Arrays.asList(PeriodoEvento.values());
 	}
 	public List<String> horas(){
 		return listaDeNumeros(0, 23);

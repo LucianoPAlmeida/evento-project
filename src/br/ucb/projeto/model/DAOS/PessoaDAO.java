@@ -1,6 +1,8 @@
 package br.ucb.projeto.model.DAOS;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,7 +56,11 @@ public class PessoaDAO {
 		TypedQuery<Pessoa> query = getEntityManager().createNamedQuery("allPessoas",Pessoa.class);
 		return query.getResultList();
 	}
-	
+	public List<Pessoa> getAll(Comparator<Pessoa> comparator){
+		List<Pessoa> list = getAll();
+		Collections.sort(list, comparator);
+		return list;
+	}
 	public List<Pessoa> findByEvento(Integer idEvento){
 		List<Pessoa> ret = new ArrayList<Pessoa>();
 		for(Pessoa pessoa : getAll()){

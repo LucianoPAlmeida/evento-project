@@ -1,7 +1,7 @@
 package br.ucb.projeto.model.enuns;
 
 public enum LocalEvento {
-	FNAC("FNAC"),LIVRARIA_CULTURA("Livraria Cultura"),UCB("UCB");
+	FNAC("FNAC"),LA_URSA("La Ursa"),UCB("UCB");
 	
 	private String local;
 	private LocalEvento(String local){

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.enuns.PeriodoEvento;
 
 
 @Entity
@@ -28,17 +29,12 @@ public class Palestra extends Evento{
 		
 	}
 	public Palestra(Evento evento){
-		this(evento.getTitle(), evento.getSummary(),evento.getPhoto(), evento.getData(), evento.getLocal(), null);
+		this(evento.getTitle(), evento.getSummary(),evento.getPhoto(), evento.getData(), evento.getLocal(),evento.getPeriodo(), null);
 		setId(evento.getId());
 	}
 	public Palestra(String title, String summary,ImagePath photo,
-			GregorianCalendar data,Palestrante palestrante){
-		super(title, summary, photo, data);
-		setPalestrante(palestrante);
-	}
-	public Palestra(String title, String summary,ImagePath photo,
-			GregorianCalendar data,LocalEvento local,Palestrante palestrante){
-		super(title, summary, photo, data,local);
+			GregorianCalendar data,LocalEvento local,PeriodoEvento periodo,Palestrante palestrante){
+		super(title, summary, photo, data,local,periodo);
 		setPalestrante(palestrante);
 	}
 	@XmlElement
@@ -57,15 +53,6 @@ public class Palestra extends Evento{
 		result = prime * result
 				+ ((getPalestrante() == null) ? 0 : getPalestrante().hashCode());
 		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Palestra){
-			Palestra p = (Palestra)obj;
-			return (super.equals(obj) && p.equals(getPalestrante()));
-		}
-		return false;
 	}
 
 	@Override

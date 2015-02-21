@@ -59,13 +59,10 @@
 			<div class="divLabel">
 				<h:outputLabel value="Hora do Evento" styleClass="labelPadrao"/>
 			</div>
-			<h:selectOneMenu value="#{eventoBean.horaEvento}">
-				<f:selectItems var="h" value="#{eventoBean.horas()}" itemLabel="#{h}" itemValue="#{h}"/>
+			<h:selectOneMenu id="selectPeriodo" value="#{eventoBean.evento.periodo}">
+				<f:selectItems var="periodo" value="#{eventoBean.allPeriodos()}" itemLabel="#{periodo.toString()}" itemValue="#{periodo}"/>
 			</h:selectOneMenu>
 			
-			<h:selectOneMenu value="#{eventoBean.minutoEvento}">
-				<f:selectItems var="m" value="#{eventoBean.minutos()}" itemLabel="#{m}" itemValue="#{m}"/>
-			</h:selectOneMenu>
 		</div>
 		<br/>
 		<div>
@@ -86,8 +83,8 @@
 		<br/>
 		<br/>
 		<div class="divBotoes">
-			<h:commandButton rendered="#{eventoBean.updating}" value="Alterar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
-			<h:commandButton rendered="#{not eventoBean.updating}" value="Cadastrar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{eventoBean.updating}" value="Alterar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onclick="habilitarTodosItensSelectPeriodo();" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
+			<h:commandButton rendered="#{not eventoBean.updating}" value="Cadastrar" action="#{eventoBean.cadastrar()}" styleClass="botaoPadrao" onclick="habilitarTodosItensSelectPeriodo();" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 			<h:commandButton value="Voltar" immediate="true" action="#{eventoBean.voltar()}" styleClass="botaoPadrao" onmouseover="mouseOnMenuButton(event);" onmouseout="mouseOutMenuButton(event);"/>
 		</div>
 		<br/>

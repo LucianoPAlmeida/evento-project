@@ -35,6 +35,7 @@ import org.eclipse.persistence.annotations.CacheType;
 
 import br.ucb.projeto.model.enuns.EventType;
 import br.ucb.projeto.model.enuns.LocalEvento;
+import br.ucb.projeto.model.enuns.PeriodoEvento;
 import br.ucb.projeto.util.DateUtil;
 @Entity
 @MappedSuperclass
@@ -66,6 +67,8 @@ public abstract class Evento implements Serializable{
 	private LocalEvento local;
 	@Temporal(TemporalType.TIMESTAMP)
 	private GregorianCalendar data;
+	@Enumerated(EnumType.ORDINAL)
+	private PeriodoEvento periodo;
 	
 	public Evento(){
 		setPhoto(new ImagePath());
@@ -81,8 +84,9 @@ public abstract class Evento implements Serializable{
 		setData(data);
 	}
 	public Evento(String title, String summary,ImagePath photo,
-			GregorianCalendar data,LocalEvento local) {
+			GregorianCalendar data,LocalEvento local,PeriodoEvento periodo) {
 		this(title, summary, photo, data);
+		setPeriodo(periodo);
 		setLocal(local);
 	}
 	public Integer getId() {
@@ -113,7 +117,6 @@ public abstract class Evento implements Serializable{
 	public void setLocal(LocalEvento local) {
 		this.local = local;
 	}
-	@XmlElement
 	public abstract EventType getTipo();
 	
 	@XmlTransient
@@ -123,17 +126,18 @@ public abstract class Evento implements Serializable{
 	public void setData(GregorianCalendar data) {
 		this.data = data;
 	}
+	public PeriodoEvento getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(PeriodoEvento periodo) {
+		this.periodo = periodo;
+	}
 	@XmlElement
 	public String getDiaEvento(){
 		int mes = getData().get(Calendar.MONTH)+1;
 		return DateUtil.stringIntComZerosEsquerda(getData().get(Calendar.DAY_OF_MONTH))+"/"+DateUtil.stringIntComZerosEsquerda(mes)+"/"+getData().get(Calendar.YEAR);
 	}
-	@XmlElement
-	public String getHoraEvento(){
-		int hora = getData().get(Calendar.HOUR_OF_DAY);
-		int minuto = getData().get(Calendar.MINUTE);
-		return DateUtil.stringIntComZerosEsquerda(hora) +":"+DateUtil.stringIntComZerosEsquerda(minuto);
-	}
+	
 	public ImagePath getPhoto() {
 		return photo;
 	}
@@ -156,7 +160,7 @@ public abstract class Evento implements Serializable{
 	public String toString() {
 		return "Evento [id=" + getId() + ", title=" + getTitle() + ", summary=" + getSummary()
 				+ ", photo=" + getPhoto() + ", local=" + getLocal() + ", data=" + getDiaEvento()
-				+ ",hora="+getHoraEvento()+"]";
+				+ ",período="+getPeriodo()+"]";
 	}
 	
 }
