@@ -126,6 +126,9 @@ function verificarEstadoTipoEvento(showMessage){
 		select.selectedIndex = 0;
 		if(document.getElementById("isEmptyPalestrantes").value == 'true'){
 			element.selectedIndex = 1;
+			var elem = document.getElementById("j_idt5:selectPeriodo");
+			elem.selectedIndex = 1;
+			elem.setAttribute("disabled", "disabled");
 			document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "hidden";
 			document.getElementById("j_idt5:inputPalestrantes").style.visibility = "hidden";
 			if(showMessage){

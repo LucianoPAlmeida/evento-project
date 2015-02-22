@@ -3,22 +3,22 @@ package br.ucb.projeto.model.beans;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import br.projeto.controller.annotatios.CSVElement;
 import br.projeto.controller.annotatios.CSVRootElement;
 import br.projeto.controller.annotatios.CSVTransient;
+import br.ucb.projeto.util.DateUtil;
 @Entity
 @Table(name = "tb_pessoas")
 @NamedQueries({
@@ -30,29 +30,24 @@ public class Pessoa implements Serializable{
 	
 	private static final long serialVersionUID = 8019175132090316786L;
 	
-	
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	private String email;
 	private String nome;
 	private String telefone;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataInscricao;
+	@Transient
+	private String data;
 	@ElementCollection
-	private List<String> codigosEventos;
-	
+	private Map<Integer,Long> eventoEnumeroIncricao;
 	public Pessoa() {
-		setDataInscricao(new GregorianCalendar());
+		
 	}
 	
-	public Pessoa(String nome, String email, String telefone, List<String> codigosEventos) {
+	public Pessoa(String nome, String email, String telefone, Map<Integer,Long> eventoEnumeroIncricao) {
 		this();
 		setNome(nome);
 		setEmail(email);
 		setTelefone(telefone);
-		setCodigosEventos(codigosEventos);
+		setEventoEnumeroIncricao(eventoEnumeroIncricao);
 	}
 	
 	public String getNome() {
@@ -69,14 +64,6 @@ public class Pessoa implements Serializable{
 		this.telefone = telefone;
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -84,31 +71,30 @@ public class Pessoa implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@CSVTransient
-	public Calendar getDataInscricao() {
-		return dataInscricao;
+	@XmlTransient
+	@CSVElement(name ="horaCadastro")
+	public String getData() {
+		return data;
 	}
-	
-	public void setDataInscricao(Calendar dataInscricao) {
-		this.dataInscricao = dataInscricao;
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	@CSVTransient
-	public List<String> getCodigosEventos() {
-		return codigosEventos;
+	public Map<Integer, Long> getEventoEnumeroIncricao() {
+		return eventoEnumeroIncricao;
 	}
 
-	public void setCodigosEventos(List<String> codigosEventos) {
-		this.codigosEventos = codigosEventos;
+	public void setEventoEnumeroIncricao(Map<Integer, Long> eventoEnumeroIncricao) {
+		this.eventoEnumeroIncricao = eventoEnumeroIncricao;
 	}
-
-	
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
 		return result;
 	}
 
@@ -120,24 +106,33 @@ public class Pessoa implements Serializable{
 			return false;
 		if(obj instanceof Pessoa){
 			Pessoa p =(Pessoa)obj;
-			return getId().equals(p.getId());
+			return getEmail().equals(p.getEmail());
 		}
 		return false;
 	}
 	
 	@Override
 	public String toString() {
-		return "Pessoa [id=" + getId() + ", email=" + getEmail() + ", nome=" + getNome()
-				+ ", telefone=" + getTelefone() + ", dataInscricao=" + getDataInscricao()
-				+ ", codigosEventos=" + getCodigosEventos() + "]";
+		return "Pessoa [email=" + getEmail() + ", nome=" + getNome()
+				+ ", telefone=" + getTelefone() + ", eventoEnumeroIncricao=" + getEventoEnumeroIncricao() + "]";
 	}
 	public boolean contemEvento(Integer idEvento){
-		if(idEvento == null) return false;
-		for(String id : getCodigosEventos()){
-			if(id.matches("\\d+")){
-				if(idEvento.intValue() == Integer.parseInt(id)) return true;
-			}
+		if(idEvento == null || getEventoEnumeroIncricao() == null) return false;
+		for(Integer id : getEventoEnumeroIncricao().keySet()){
+			if(idEvento.intValue() == id.intValue()) return true;
 		}
 		return false;
+	}
+	public void preencherDataField(Integer idEvento){
+		Calendar date = getDataIncricao(idEvento);
+		setData(DateUtil.dateMMDD(date)+" "+DateUtil.stringTimeFromDate(date));
+	}
+	public Calendar getDataIncricao(Integer idEvento){
+		if(getEventoEnumeroIncricao() != null){
+			GregorianCalendar data = new GregorianCalendar();
+			data.setTimeInMillis(getEventoEnumeroIncricao().get(idEvento));
+			return data;
+		}
+		return null;
 	}
 }

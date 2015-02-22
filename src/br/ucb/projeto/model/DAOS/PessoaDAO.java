@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import br.ucb.model.comparators.EventQueueComparator;
+import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.Pessoa;
 import br.ucb.projeto.model.factory.ManagerFactory;
 
@@ -31,14 +33,22 @@ public class PessoaDAO {
 		getEntityManager().getTransaction().commit();
 	}
 	
-	public void update(Pessoa pessoa){
+	public void update(Pessoa pessoa,boolean relaceEventos){
+		if(!relaceEventos){
+			Pessoa p = find(pessoa.getEmail());
+			if(p != null){
+				for(Integer key : p.getEventoEnumeroIncricao().keySet()){
+					pessoa.getEventoEnumeroIncricao().put(key, p.getEventoEnumeroIncricao().get(key));
+				}
+			}
+		}
 		getEntityManager().getTransaction().begin();
 		getEntityManager().merge(pessoa);
 		getEntityManager().getTransaction().commit();
 	}
 	
-	public Pessoa find(String rg){
-		return getEntityManager().find(Pessoa.class, rg);
+	public Pessoa find(String email){
+		return getEntityManager().find(Pessoa.class, email);
 	}
 	
 	public void delete(String rg){
@@ -61,12 +71,15 @@ public class PessoaDAO {
 		Collections.sort(list, comparator);
 		return list;
 	}
-	public List<Pessoa> findByEvento(Integer idEvento){
+	public List<Pessoa> findByEvento(Integer idEvento,boolean sorted){
 		List<Pessoa> ret = new ArrayList<Pessoa>();
 		for(Pessoa pessoa : getAll()){
 			if(pessoa.contemEvento(idEvento)){
 				ret.add(pessoa);
 			}
+		}
+		if (sorted) {
+			Collections.sort(ret,new EventQueueComparator(idEvento));
 		}
 		return ret;
 	}
@@ -76,5 +89,15 @@ public class PessoaDAO {
 	
 	public boolean isEmpty(){
 		return (getQuantidade() == 0);
+	}
+	
+	public int quantidadeParticipantes(Evento evento){
+		int cont = 0;
+		for(Pessoa pessoa : getAll()){
+			if(pessoa.contemEvento(evento.getId())){
+				cont++;
+			}
+		}
+		return cont;
 	}
 }

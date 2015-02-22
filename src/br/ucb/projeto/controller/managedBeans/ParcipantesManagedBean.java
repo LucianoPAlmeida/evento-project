@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -18,7 +17,6 @@ import br.ucb.projeto.model.DAOS.EventoDAO;
 import br.ucb.projeto.model.DAOS.PessoaDAO;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.Pessoa;
-import br.ucb.projeto.model.enuns.PessoaComparator;
 
 
 @ManagedBean(name = "participanteBean")	
@@ -62,8 +60,10 @@ public class ParcipantesManagedBean {
 		try {
 			Files.deleteIfExists(Paths.get(filePath));
 			CSVGenerator generator = new CSVGenerator(filePath);
-			List<Pessoa> list = getDaoPessoa().findByEvento(getEventoSelecionado().getId());
-			Collections.sort(list, PessoaComparator.POR_DATA_INSCRICAO);
+			List<Pessoa> list = getDaoPessoa().findByEvento(getEventoSelecionado().getId(),true);
+			for (Pessoa pessoa : list) {
+				pessoa.preencherDataField(getEventoSelecionado().getId());
+			}
 			boolean sucess = generator.generateFile(list,Pessoa.class);
 			generator.close();
 			if(sucess){

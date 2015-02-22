@@ -38,4 +38,9 @@ public class DateUtil {
 		if(calendar == null)return null;
 		return stringFromDate(calendar)+" "+stringTimeFromDate(calendar);
 	}
+	
+	public static String dateMMDD(Calendar date){
+		if(date == null) return null;
+		return (date.get(Calendar.MONTH)+1)+"/"+date.get(Calendar.DAY_OF_MONTH);
+	}
 }
