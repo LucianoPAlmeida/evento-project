@@ -56,7 +56,7 @@ public class PessoaResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("/cadastro")
-	public void cadastro(@FormParam("email")String email,@FormParam("name")String nome,@FormParam("phone")String telefone,@FormParam("event")List<String> codigosEventos){
+	public void cadastro(@FormParam("mail")String email,@FormParam("name")String nome,@FormParam("phone")String telefone,@FormParam("event")List<String> codigosEventos){
 		Map<Integer,Long> eventosOrdem = new HashMap<Integer, Long>();
 		for(String cod: codigosEventos){
 			Integer valor = Integer.parseInt(cod);

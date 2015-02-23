@@ -24,8 +24,8 @@
 <!--   INICIO DAS CONFIGURACOES JDBC   -->
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/thewal_evento"/>
-<property name="javax.persistence.jdbc.user" value="root"/>
-<property name="javax.persistence.jdbc.password" value="root"/>
+<property name="javax.persistence.jdbc.user" value="thewal_root"/>
+<property name="javax.persistence.jdbc.password" value="thewal"/>
 <!--   FIM  DAS CONFIGURACOES JDBC   -->
 <property name="eclipselink.show-sql" value="true"/>
 <property name="eclipselink.format-sql" value="false"/>

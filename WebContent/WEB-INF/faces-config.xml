@@ -21,7 +21,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cadastroPalestrante</from-outcome>
-			<to-view-id>cadastroPalestrante.xhtml</to-view-id>
+			<to-view-id>cadastroConvidado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cadastrarUsuario</from-outcome>
@@ -37,7 +37,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listarPalestrantes</from-outcome>
-			<to-view-id>listagemPalestrantes.xhtml</to-view-id>
+			<to-view-id>listagemConvidados.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listarUsuarios</from-outcome>
@@ -45,7 +45,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>confirmarPalestrante</from-outcome>
-			<to-view-id>confirmacaoPalestrante.xhtml</to-view-id>
+			<to-view-id>confirmacaoConvidado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>login</from-outcome>

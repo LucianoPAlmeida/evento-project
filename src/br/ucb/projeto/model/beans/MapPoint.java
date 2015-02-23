@@ -65,5 +65,4 @@ public class MapPoint {
 	public void setIdEvento(Integer idEvento) {
 		this.idEvento = idEvento;
 	}
-	
 }

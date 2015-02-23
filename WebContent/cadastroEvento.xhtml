@@ -11,8 +11,13 @@
   <link rel="stylesheet" type="text/css" href="http://#{indexBean.aplicationDomain}/EventoProject/styles/style.css" />
 </head>
 
-<h:body onload="verificarEstadoTipoEvento(false);">
-	<h:form enctype="multipart/form-data">
+<h:body onload="verificarEstadoTipoEvento();">
+	<br/>
+	<h:form rendered="#{empty eventoBean.daoPalestrante.all}" style="margin-left: 50px;margin-top:50px;">
+		<h:outputLabel value="Não é possível adicionar um evento pois não há convidados registrados!" styleClass="labelPadrao"/>
+		<h:commandLink style="margin-left:40px;" value="Página principal" action="principal"/>
+	</h:form>
+	<h:form enctype="multipart/form-data" rendered="#{not empty eventoBean.daoPalestrante.all}">
 		<h:outputLabel value="Evento" styleClass="labelTitulo"/>
 		<br/>
 		<br/>
@@ -39,11 +44,11 @@
 			<div class="divLabel">
 				<h:outputLabel value="Tipo de Evento" styleClass="labelPadrao"/>
 			</div>
-			<h:selectOneMenu id="tiposEvento" value="#{eventoBean.tipoEvento}" onchange="verificarEstadoTipoEvento(true);">
+			<h:selectOneMenu id="tiposEvento" value="#{eventoBean.tipoEvento}" onchange="verificarEstadoTipoEvento();">
 				<f:selectItems value="#{eventoBean.allEventos()}" var="evento" itemLabel="#{evento.toString()}" itemValue="#{evento}"/>
 			</h:selectOneMenu>
-				<h:outputLabel id="labelInputPalestrantes" value="Selecione o Palestrante " styleClass="labelPadrao"/>
-			<h:selectOneMenu id="inputPalestrantes" value="#{eventoBean.palestrante}" converter="palestranteConverter" validator="#{eventoBean.validateRequiredPalestrante}">
+				<h:outputLabel id="labelInputPalestrantes" value="Selecione o Convidado " styleClass="labelPadrao"/>
+			<h:selectOneMenu id="inputPalestrantes" value="#{eventoBean.palestrante}" converter="palestranteConverter" required="true" requiredMessage="Por favor selecione o convidado!">
 				<f:selectItems var="palestrante" value="#{eventoBean.daoPalestrante.all}" itemLabel="#{palestrante.name}" itemValue="#{palestrante}"/>
 			</h:selectOneMenu>
 		</div>

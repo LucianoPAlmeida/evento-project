@@ -9,9 +9,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
@@ -138,13 +136,6 @@ public class CadastroEventoManagedBean {
 	public void setDataAux(GregorianCalendar dataAux) {
 		this.dataAux = dataAux;
 	}
-	
-	public void validateRequiredPalestrante(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if(getTipoEvento() == EventType.PALESTRA && value == null){
-			throw new ValidatorException(new FacesMessage("Por favor selecione o palestrante!"));
-		}
-	}
-	
 	public String cadastrar(){
 		fillSubClassInstance();
 		ImagePersistence imgPersistence = ImagePersistence.getInstance();
@@ -175,6 +166,7 @@ public class CadastroEventoManagedBean {
 			((Palestra)getEvento()).setPalestrante(getPalestrante());
 		}else if(getTipoEvento() == EventType.WORKSHOP){
 			setEvento(new WorkShop(getEvento()));
+			((WorkShop)getEvento()).setConvidado(getPalestrante());
 		}
 	}
 	public String confirmarCadastro(){
@@ -255,6 +247,9 @@ public class CadastroEventoManagedBean {
 		if(evento instanceof Palestra){
 			Palestra p = (Palestra)evento;
 			setPalestrante(p.getPalestrante());
+		}else if(evento instanceof WorkShop){
+			WorkShop w = (WorkShop)evento;
+			setPalestrante(w.getConvidado());
 		}
 		setEvento(evento);
 	}

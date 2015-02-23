@@ -22,7 +22,7 @@ import br.ucb.projeto.model.enuns.PeriodoEvento;
 public class Palestra extends Evento{
 	private static final long serialVersionUID = -3484866591100093218L;
 	@ManyToOne
-	@JoinColumn(name = "id_palestrante")
+	@JoinColumn(name = "id_convidado")
 	private Palestrante palestrante;
 	
 	public Palestra() {

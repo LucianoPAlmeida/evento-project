@@ -129,4 +129,8 @@ public class MapaManagedBean {
 		submitImage();
 		return null;
 	}
+	
+	public String titleEventoById(Integer idEvento){
+		return new EventoDAO().find(idEvento).getTitle();
+	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import br.ucb.projeto.model.beans.Evento;
 import br.ucb.projeto.model.beans.Palestra;
 import br.ucb.projeto.model.beans.Palestrante;
+import br.ucb.projeto.model.beans.WorkShop;
 import br.ucb.projeto.model.enuns.LocalEvento;
 import br.ucb.projeto.model.factory.ManagerFactory;
 import br.ucb.projeto.model.persistense.ImagePersistence;
@@ -99,9 +100,15 @@ public class EventoDAO{
 					if(p.getPalestrante().equals(palestrante)){
 						return true;
 					}
+				}else if(e instanceof WorkShop){
+					WorkShop w = (WorkShop)e;
+					if(w.getConvidado().equals(palestrante)){
+						return true;
+					}
 				}
 			}
 		}
 		return false;
 	}
+	
 }

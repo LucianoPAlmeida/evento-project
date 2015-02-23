@@ -110,12 +110,13 @@ function mouseOutMenuButton(e) {
 function clickOnDownLoad() {
 	document.getElementById("j_idt5:msgErro").style.visibility = "hidden";
 }
-function verificarEstadoTipoEvento(showMessage){
-	var element = document.getElementById("j_idt5:tiposEvento");
+function verificarEstadoTipoEvento(){
+	var element = document.getElementById("j_idt9:tiposEvento");
 	var value = element.options[element.selectedIndex].text;
 	if(value == "Palestra"){
-		var select = document.getElementById("j_idt5:selectPeriodo"); 
-		document.getElementById("j_idt5:selectPeriodo").removeAttribute("disabled");
+		var select = document.getElementById("j_idt9:selectPeriodo"); 
+		select.selectedIndex = 0;
+		document.getElementById("j_idt9:selectPeriodo").removeAttribute("disabled");
 		var i;
 		for(i = 0; i < select.length; i++){
 			var option = select.options[i];
@@ -123,36 +124,20 @@ function verificarEstadoTipoEvento(showMessage){
 				option.setAttribute("disabled", "disabled");
 			}
 		}
-		select.selectedIndex = 0;
-		if(document.getElementById("isEmptyPalestrantes").value == 'true'){
-			element.selectedIndex = 1;
-			var elem = document.getElementById("j_idt5:selectPeriodo");
-			elem.selectedIndex = 1;
-			elem.setAttribute("disabled", "disabled");
-			document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "hidden";
-			document.getElementById("j_idt5:inputPalestrantes").style.visibility = "hidden";
-			if(showMessage){
-				alert("Palestra não pode ser selecionada pois não há palestrantes cadastrados!");
-			}
-		}else{
-			document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "visible";
-			document.getElementById("j_idt5:inputPalestrantes").style.visibility = "visible";
-		}
 	}else if(value == "Workshop"){
-		var elem = document.getElementById("j_idt5:selectPeriodo");
+		var elem = document.getElementById("j_idt9:selectPeriodo");
 		elem.selectedIndex = 1;
 		elem.setAttribute("disabled", "disabled");
-		document.getElementById("j_idt5:labelInputPalestrantes").style.visibility = "hidden";
-		document.getElementById("j_idt5:inputPalestrantes").style.visibility = "hidden";
 	}
 	
 }
 function habilitarTodosItensSelectPeriodo(){
-	document.getElementById("j_idt5:selectPeriodo").removeAttribute("disabled");
-	var select = document.getElementById("j_idt5:selectPeriodo"); 
+	document.getElementById("j_idt9:selectPeriodo").removeAttribute("disabled");
+	var select = document.getElementById("j_idt9:selectPeriodo"); 
 	var i;
 	for(i = 0; i < select.length; i++){
 		var option = select.options[i];
 		option.removeAttribute("disabled");
 	}
 }
+
