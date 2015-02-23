@@ -90,12 +90,10 @@ public class EmailSender {
 		return autenticacao;
 	}
 	public Properties getPropriedades(){
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465"); 
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); 
-		props.put("mail.smtp.auth", "true"); 
-		props.put("mail.smtp.port", "465"); 
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host","localhost");
+		props.put("mail.smtp.port","25");
+		props.put("mail.smtp.auth","true");
 		return props;
 	}
 	
