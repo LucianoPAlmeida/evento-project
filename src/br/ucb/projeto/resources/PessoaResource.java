@@ -66,7 +66,7 @@ public class PessoaResource {
 		System.out.println(pessoa);
 		getDaoPessoa().update(pessoa,false);
 		pessoa = getDaoPessoa().find(pessoa.getEmail());
-		EmailSender sender = new EmailSender("The Wall Break - Confirmação de Inscrição",MessageGenerator.generateText(pessoa), "thewbreak@gmail.com","The Wall Break","matrizsalak262", pessoa.getEmail());
+		EmailSender sender = new EmailSender("The Wall Break - Confirmação de Inscrição",MessageGenerator.generateText(pessoa), "wallbreak@thewallbreak.com","The Wall Break","thewallbreak", pessoa.getEmail());
 		sender.enviar();
 	}
 }

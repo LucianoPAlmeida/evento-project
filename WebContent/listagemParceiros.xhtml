@@ -14,8 +14,9 @@
 
 <h:body>
 	<h:form>
+		<ui:include src="./template.xhtml"/>
 		<h:outputLabel value="Parceiros" styleClass="labelTitulo"/>
-		<h:commandLink value="Página principal" action="principal" style="float:rigth;"/>
+		<h:commandLink value="Adicionar Parceiro" action="cadastrarParceiro" style="float:rigth;"/>
 		<br/>
 		<br/>
 		<h:outputLabel rendered="#{empty parceiroListagem.daoParceiro.all}" value="Não há parceiros cadastrados!" styleClass="labelPadrao" />

@@ -14,8 +14,9 @@
 
 <h:body>
 	<h:form>
+		<ui:include src="./template.xhtml"/>
 		<h:outputLabel value="Vídeos" styleClass="labelTitulo"/>
-		<h:commandLink value="Página principal" action="principal" style="float:rigth;"/>
+		<h:commandLink value="Adicionar Vídeo" action="cadastrarVideo" style="float:rigth;"/>
 		<br/>
 		<h:outputLabel rendered="#{empty videoListagem.daoVideo.all}" value="Nenhum vídeo cadastrado!" styleClass="labelPadrao"/>
 		<br/>

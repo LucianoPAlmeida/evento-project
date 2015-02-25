@@ -196,6 +196,7 @@ public class CadastroEventoManagedBean {
 				imgPersistence.delete(path);
 			}
 		}
+		System.out.println(getEvento());
 		dao.update(getEvento());
 		clear();
 		return "listarEventos";

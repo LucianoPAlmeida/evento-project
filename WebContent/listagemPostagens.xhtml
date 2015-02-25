@@ -15,8 +15,9 @@
 <h:body>
 	<div style="float: left;">
 	<h:form>
+		<ui:include src="./template.xhtml"/>
 		<h:outputLabel value="Postagens" styleClass="labelTitulo"/>
-		<h:commandLink value="Página principal" action="principal"/>
+		<h:commandLink value="Adicionar Postagem" action="cadastrarPostagem"/>
 		<br/>
 		<br/>
 		<h:outputLabel rendered="#{empty postagemListagem.daoPostagem.all}" value="Não há nenhuma postagem publicada!" styleClass="labelPadrao" />

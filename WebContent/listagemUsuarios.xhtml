@@ -14,8 +14,8 @@
 
 <h:body>
 	<h:form rendered="${usuario.administrador}">
+		<ui:include src="./template.xhtml"/>
 		<h:outputLabel value="Usuários" styleClass="labelTitulo"/>	
-		<h:commandLink action="principal" value="Página principal"/>
 		<br/>
 		<br/>
 		<h:outputLabel value="Nenhum usuário cadastrado!" rendered="#{empty listagemUsuarios.daoUsuario.all}" styleClass="labelPadrao"/>

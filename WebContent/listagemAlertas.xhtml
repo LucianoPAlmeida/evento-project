@@ -15,8 +15,9 @@
 <h:body>
 	<div style="float: left;">
 	<h:form>
+		<ui:include src="./template.xhtml"/>
 		<h:outputLabel value="Alertas" styleClass="labelTitulo"/>
-		<h:commandLink value="Página principal" action="principal"/>
+		<h:commandLink value="Adicionar Alerta" action="cadastrarAlerta"/>
 		<br/>
 		<br/>
 		<h:outputLabel rendered="#{empty alertaListagem.daoAlerta.all}" value="Não há nenhum alerta cadastrado!" styleClass="labelPadrao" />

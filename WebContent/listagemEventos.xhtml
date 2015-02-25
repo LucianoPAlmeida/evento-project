@@ -14,8 +14,9 @@
 
 <h:body>
 	<h:form>
-		<h:outputLabel value="Eventos" styleClass="labelTitulo"/>	
-		<h:commandLink value="Página Principal" action="principal"/>
+		<ui:include src="./template.xhtml"/>
+		<h:outputLabel value="Eventos" styleClass="labelTitulo"/>
+		<h:commandLink value="Adicionar Convidado" action="cadastroPalestrante"/>	
 		<br/>
 		<br/>
 		<h:messages styleClass="msgErroPadrao"/>

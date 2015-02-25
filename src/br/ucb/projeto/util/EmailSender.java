@@ -92,13 +92,13 @@ public class EmailSender {
 	public Properties getPropriedades(){
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host","localhost");
-		props.put("mail.smtp.port","25");
+		props.put("mail.smtp.port","587");
 		props.put("mail.smtp.auth","true");
 		return props;
 	}
 	
 	public boolean enviar(){
-		Session session = Session.getDefaultInstance(getPropriedades(), getAuthenticator());
+		Session session = Session.getInstance(getPropriedades(), getAuthenticator());
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(getRemetente(),getNomeRemetente())); 

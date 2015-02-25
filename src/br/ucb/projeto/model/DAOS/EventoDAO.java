@@ -45,7 +45,7 @@ public class EventoDAO{
 	}
 	public void update(Evento entity) {
 		getEntityManager().getTransaction().begin();
-		getEntityManager().merge(entity.getPhoto());
+		getEntityManager().merge(entity);
 		getEntityManager().getTransaction().commit();
 	}
 	
