@@ -111,12 +111,12 @@ function clickOnDownLoad() {
 	document.getElementById("j_idt5:msgErro").style.visibility = "hidden";
 }
 function verificarEstadoTipoEvento(){
-	var element = document.getElementById("j_idt9:tiposEvento");
+	var element = document.getElementById("j_idt19:tiposEvento");
 	var value = element.options[element.selectedIndex].text;
 	if(value == "Palestra"){
-		var select = document.getElementById("j_idt9:selectPeriodo"); 
+		var select = document.getElementById("j_idt19:selectPeriodo"); 
 		select.selectedIndex = 0;
-		document.getElementById("j_idt9:selectPeriodo").removeAttribute("disabled");
+		document.getElementById("j_idt19:selectPeriodo").removeAttribute("disabled");
 		var i;
 		for(i = 0; i < select.length; i++){
 			var option = select.options[i];
@@ -125,15 +125,15 @@ function verificarEstadoTipoEvento(){
 			}
 		}
 	}else if(value == "Workshop"){
-		var elem = document.getElementById("j_idt9:selectPeriodo");
+		var elem = document.getElementById("j_idt19:selectPeriodo");
 		elem.selectedIndex = 1;
 		elem.setAttribute("disabled", "disabled");
 	}
 	
 }
 function habilitarTodosItensSelectPeriodo(){
-	document.getElementById("j_idt9:selectPeriodo").removeAttribute("disabled");
-	var select = document.getElementById("j_idt9:selectPeriodo"); 
+	document.getElementById("j_idt19:selectPeriodo").removeAttribute("disabled");
+	var select = document.getElementById("j_idt19:selectPeriodo"); 
 	var i;
 	for(i = 0; i < select.length; i++){
 		var option = select.options[i];

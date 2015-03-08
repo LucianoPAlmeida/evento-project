@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import br.ucb.projeto.model.DAOS.PostagemDAO;
 import br.ucb.projeto.model.beans.Postagem;
 @SessionScoped
@@ -56,7 +58,7 @@ public class CadastroPostagemManageBean {
 	}
 	public void clear(){
 		setPostagem(new Postagem());
-		setUpdating(false);
+		setUpdating(false);		
 	}
 	
 }

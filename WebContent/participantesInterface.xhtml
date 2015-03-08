@@ -17,24 +17,22 @@
 		<div style="margin-top: 130px;margin-left: 340px;">
 			<ui:include src="./template.xhtml"/>
 			<h:outputLabel styleClass="labelTitulo" value="Participantes"/>
+			<h:commandLink disabled="#{empty participanteBean.eventosOrdenados}" value="Download" onclick="clickOnDownLoad()" action="#{participanteBean.baixarArquivo()}"/>
 		</div>
-		<div style="margin-top: 30px;margin-left: 300px;height: 280px;width: 550px;">
+		<div style="float: none;margin-top: 10px;margin-left: 400px;">
+			<h:messages id="msgErro" styleClass="msgErroPadrao"/>
+		</div>
+		<div style="margin-top: 30px;margin-left: 400px;height: 280px;width: 550px;">
 			<div style="float: left;">
-				<h:outputLabel rendered="#{empty participanteBean.daoEvento.all}" styleClass="labelPadrao" value="Não há eventos cadastrados!"/>
-				<h:selectOneListbox rendered="#{not empty participanteBean.daoEvento.all}" styleClass="lista" size="15" value="#{participanteBean.eventoSelecionado}" converter="eventoIdConverter" required="true" requiredMessage="Por favor selecione um evento!">
-					<f:selectItems value="#{participanteBean.daoEvento.all}" var="evento" itemLabel="#{evento.title}" itemValue="#{evento}"></f:selectItems>
-				</h:selectOneListbox>
-			</div>
-			<div style="float: left;margin-left: 50px;">
-				<h:graphicImage style="margin-left: 20px;" value="http://#{indexBean.aplicationDomain}/EventoProject/images/icon_download.png"></h:graphicImage>
-				<br/>
-				<h:commandLink disabled="#{empty participanteBean.daoEvento.all}" value="Download" onclick="clickOnDownLoad()" action="#{participanteBean.baixarArquivo()}"/>
+				<h:outputLabel rendered="#{empty participanteBean.eventosOrdenados}" styleClass="labelPadrao" value="Não há eventos cadastrados!"/>
+				<ui:repeat var="evento" value="#{participanteBean.eventosOrdenados}">
+					<input type="checkbox" value="#{evento.id}" name="selectedEvents" id="selectedEvents"/> 
+					<h:outputLabel styleClass="labelPadrao" value="#{evento.title}"/>
+					<br/>
+				</ui:repeat>
 			</div>
 		</div>
 		<br/>
-		<div style="float: none;margin-top: 10px;margin-left: 300px;">
-			<h:messages id="msgErro" styleClass="msgErroPadrao"/>
-		</div>
 	</h:form>
 </h:body>
 
