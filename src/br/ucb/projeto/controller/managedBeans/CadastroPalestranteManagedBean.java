@@ -69,6 +69,7 @@ public class CadastroPalestranteManagedBean {
 		setLoadFile((getImage().getSize() != 0));
 		String formato = getImage().getContentType();
 		formato = formato.substring(formato.indexOf("/")+1);
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 		ImagePersistence.getInstance().persist(getImage(),null, formato);
 	}
 	

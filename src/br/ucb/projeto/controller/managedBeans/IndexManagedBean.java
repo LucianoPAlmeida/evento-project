@@ -10,6 +10,7 @@ import javax.faces.bean.RequestScoped;
 public class IndexManagedBean {
 	public static final String APPLICATION_DOMAIN = "www.thewallbreak.com";
 	public IndexManagedBean() {
+		System.gc();
 	}
 	
 	public String cadastrarPalestrante(){ 

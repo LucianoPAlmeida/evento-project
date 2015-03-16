@@ -162,5 +162,9 @@ public abstract class Evento implements Serializable{
 				+ ", photo=" + getPhoto() + ", local=" + getLocal() + ", data=" + getDiaEvento()
 				+ ",período="+getPeriodo()+"]";
 	}
-	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		System.out.println("Evento desalocado!");
+	}
 }

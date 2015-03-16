@@ -158,6 +158,7 @@ public class CadastroEventoManagedBean {
 		setLoadFile((getFile().getSize() != 0));
 		String formato = getFile().getContentType();
 		formato = formato.substring(formato.indexOf("/")+1);
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 		ImagePersistence.getInstance().persist(getFile(),null, formato);
 	}
 	public void fillSubClassInstance(){

@@ -93,6 +93,7 @@ public class CadastroParceiroManagedBean {
 		setLoadFile((getLogo().getSize() != 0));
 		String formato = getLogo().getContentType();
 		formato = formato.substring(formato.indexOf("/")+1);
+		ImagePersistence.getInstance().delete(ImagePersistence.getInstance().getTmpFilePath());
 		ImagePersistence.getInstance().persist(getLogo(),null, formato);
 	}
 	public String confirmarCadastro(){
